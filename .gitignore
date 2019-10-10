@@ -1,0 +1,4 @@
+venv/
+terraform.tfstate*
+__pycache__
+*.pyc
