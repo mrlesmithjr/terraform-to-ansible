@@ -3,6 +3,7 @@
 
 from terraform_to_ansible.parsers.azurerm_public_ip import AzureRMpublicIP
 from terraform_to_ansible.parsers.azurerm_subnet import AzureRMsubnet
+from terraform_to_ansible.parsers.azurerm_virtual_machine import AzureRMvirtualMachine
 
 
 class AzureRM:
@@ -14,6 +15,7 @@ class AzureRM:
         self.resource_instances = self.resource.get('instances')
         self.azurerm_public_ips = resource_types['azurerm_public_ips']
         self.azurerm_subnets = resource_types['azurerm_subnets']
+        self.azurerm_vms = resource_types['azurerm_virtual_machines']
 
     def parse(self):
         """Main Azure RM parser function."""
@@ -24,6 +26,9 @@ class AzureRM:
 
         elif resource_type == 'azurerm_subnet':
             self.subnets()
+
+        elif resource_type == 'azurerm_virtual_machine':
+            self.vms()
 
     def public_ips(self):
         """Parse Azure RM public IPs."""
@@ -36,3 +41,9 @@ class AzureRM:
         azure_rm_subnet = AzureRMsubnet(
             self.azurerm_subnets, self.resource_instances)
         azure_rm_subnet.parse()
+
+    def vms(self):
+        """Parse Azure RM VMs."""
+        azure_vm = AzureRMvirtualMachine(
+            self.azurerm_vms, self.resource_instances)
+        azure_vm.parse()
