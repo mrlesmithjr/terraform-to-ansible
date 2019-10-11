@@ -8,24 +8,25 @@ from terraform_to_ansible.release import __package_name__, __version__
 def get_args():
     """Available command line arguments to pass."""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--backend',
-                        help='Define which Terraform backend to parse',
-                        choices=['local', 'consul'], default='local')
-    parser.add_argument('--consulHost',
-                        help='Define Consul host when using Consul backend')
-    parser.add_argument('--consulKV',
-                        help='Define Consul KV Pair to query. Ex. Azure/Test')
-    parser.add_argument('--consulPort',
-                        help='Define Consul host port', default='8500')
-    parser.add_argument('--consulScheme',
-                        help='Define Consul connection scheme.',
-                        choices=['http', 'https'], default='http')
-    parser.add_argument('--inventory', help='Ansible inventory',
+    # parser.add_argument('--backend',
+    #                     help='Define which Terraform backend to parse',
+    #                     choices=['local', 'consul'], default='local')
+    # parser.add_argument('--consulHost',
+    #                     help='Define Consul host when using Consul backend')
+    # parser.add_argument('--consulKV',
+    #                     help='Define Consul KV Pair to query. Ex. Azure/Test')
+    # parser.add_argument('--consulPort',
+    #                     help='Define Consul host port', default='8500')
+    # parser.add_argument('--consulScheme',
+    #                     help='Define Consul connection scheme.',
+    #                     choices=['http', 'https'], default='http')
+    parser.add_argument('--inventory',
+                        help='File to save Ansible inventory as',
                         default='./terraform_inventory.yml')
-    parser.add_argument('--logLevel', help='Define logging level output',
-                        choices=['CRITICAL', 'ERROR', 'WARNING',
-                                 'INFO', 'DEBUG'], default='INFO')
-    parser.add_argument('--tfstate', help='Terraform tftstate file',
+    # parser.add_argument('--logLevel', help='Define logging level output',
+    #                     choices=['CRITICAL', 'ERROR', 'WARNING',
+    #                              'INFO', 'DEBUG'], default='INFO')
+    parser.add_argument('--tfstate', help='Terraform tftstate file to parse',
                         default='./terraform.tfstate')
     parser.add_argument('--version', action='version',
                         version=f'{__package_name__} {__version__}')
