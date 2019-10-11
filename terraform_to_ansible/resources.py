@@ -7,5 +7,6 @@ def resource_types():
     types['azurerm_public_ips'] = list()
     types['azurerm_subnets'] = list()
     types['azurerm_virtual_machines'] = list()
+    types['azurerm_network_interfaces'] = list()
 
     return types
