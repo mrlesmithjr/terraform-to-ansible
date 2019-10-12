@@ -10,6 +10,6 @@ def resource_types():
     """Define all resources as dictionary."""
     types = dict()
     for resource in set(RESOURCE_TYPES):
-        types[f'{resource}'] = list()
+        types[resource] = list()
 
     return types
