@@ -31,9 +31,9 @@ def get_args():
     parser.add_argument('--version', action='version',
                         version=f'{__package_name__} {__version__}')
     args = parser.parse_args()
-    if args.backend == 'consul' and args.consulHost is None:
-        parser.error('Consul host is required when using Consul backend.')
-    if args.backend == 'consul' and args.consulKV is None:
-        parser.error('Consul KV pair is required when using Consul backend')
+    # if args.backend == 'consul' and args.consulHost is None:
+    #     parser.error('Consul host is required when using Consul backend.')
+    # if args.backend == 'consul' and args.consulKV is None:
+    #     parser.error('Consul KV pair is required when using Consul backend')
 
     return args
