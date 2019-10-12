@@ -1,12 +1,15 @@
 """ Definitions of all resources available."""
 
+# Define the different supported resource_types
+RESOURCE_TYPES = ['azurerm_public_ips',
+                  'azurerm_subnets', 'azurerm_virtual_machines',
+                  'azurerm_network_interfaces', 'azurerm_network_interfaces']
+
 
 def resource_types():
     """Define all resources as dictionary."""
     types = dict()
-    types['azurerm_public_ips'] = list()
-    types['azurerm_subnets'] = list()
-    types['azurerm_virtual_machines'] = list()
-    types['azurerm_network_interfaces'] = list()
+    for resource in set(RESOURCE_TYPES):
+        types[f'{resource}'] = list()
 
     return types
