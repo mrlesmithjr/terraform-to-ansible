@@ -4,8 +4,6 @@
 import json
 import os
 import sys
-from terraform_to_ansible.resources import resource_types
-from terraform_to_ansible.parsers.azurerm import AzureRM
 
 
 class Parser:
@@ -13,10 +11,16 @@ class Parser:
 
     def __init__(self, args):
         """"""
+        self.all_resources = dict()
+
         # Define Terraform tfstate file to load
         self.tfstate = args.tfstate
-        self.resource_types = resource_types()
+
+        # Load Terraform tfstate
         self.load()
+
+        # Capture modules to parse
+        self.modules = self.data.get('modules')
 
         # Capture resources to parse
         self.resources = self.data.get('resources')
@@ -36,8 +40,27 @@ class Parser:
             for resource in self.resources:
                 resource_mode = resource.get('mode')
                 if resource_mode == 'managed':
-                    if resource['provider'] == 'provider.azurerm':
-                        azurerm = AzureRM(self.resource_types, resource)
-                        azurerm.parse()
+                    resource_type_lookup = self.all_resources.get(
+                        resource['type'])
+                    if resource_type_lookup is None:
+                        self.all_resources[resource['type']] = list()
+                    instances = resource.get('instances')
+                    if instances is not None:
+                        for instance in instances:
+                            self.all_resources[resource['type']].append(
+                                instance['attributes'])
 
-        return self.resource_types
+        if self.modules is not None:
+            for module in self.modules:
+                resources = module.get('resources')
+                if resources is not None:
+                    for resource, resource_config in resources.items():
+                        resource_type_lookup = self.all_resources.get(
+                            resource_config['type'])
+                        if resource_type_lookup is None:
+                            self.all_resources[resource_config['type']] = list(
+                            )
+                        self.all_resources[resource_config['type']].append(
+                            resource_config['primary']['attributes'])
+
+        return self.all_resources
