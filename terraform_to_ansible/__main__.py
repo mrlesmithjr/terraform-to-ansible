@@ -1,8 +1,10 @@
 # terraform_to_ansible/__main__.py
 """Terraform tfstate to Ansible inventory, etc."""
-import json
+# import json
+import yaml
 from terraform_to_ansible.args import get_args
 from terraform_to_ansible.parser import Parser
+from terraform_to_ansible.inventory import Inventory
 
 
 def main():
@@ -15,7 +17,12 @@ def main():
     parser = Parser(args)
     all_resources = parser.parse()
 
-    print(json.dumps(all_resources))
+    # Generate Ansible inventory
+    inventory = Inventory(all_resources)
+    ansible_inventory = inventory.generate()
+
+    # print(json.dumps(all_resources))
+    print(yaml.dump(ansible_inventory, indent=4))
 
 
 if __name__ == '__main__':

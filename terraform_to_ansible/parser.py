@@ -19,6 +19,9 @@ class Parser:
         # Load Terraform tfstate
         self.load()
 
+        # Capture Terraform version from tfstate
+        self.terraform_version = self.data.get('terraform_version')
+
         # Capture modules to parse
         self.modules = self.data.get('modules')
 
