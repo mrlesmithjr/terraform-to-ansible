@@ -18,12 +18,14 @@ class DigitalOcean:
         lookup = self.inventory['all']['children'].get('DigitalOcean')
         # Add DigitalOcean inventory group if it does not exist
         if lookup is None:
-            self.inventory['all']['children']['DigitalOcean'] = {'hosts': {}}
+            self.inventory['all']['children']['DigitalOcean'] = {
+                'hosts': {}, 'vars': {}}
 
         # Define resource mappings to functions
         resource_map = {'digitalocean_droplet': self.droplet,
                         'digitalocean_firewall': self.firewall,
                         'digitalocean_project': self.project,
+                        'digitalocean_domain': self.domain,
                         'digitalocean_ssh_key': self.ssh_key,
                         'digitalocean_tag': self.tag}
 
@@ -31,6 +33,20 @@ class DigitalOcean:
         resource = resource_map[self.resource_type]
         # Execute function based on mapping
         resource()
+
+    def domain(self):
+        """Parse DigitalOcean domain resources."""
+
+        # Lookup DigitalOcean vars domains
+        lookup = self.inventory['all']['children']['DigitalOcean']['vars'].get(
+            'domains')
+        # Add DigitialOcean vars domains if it does not exist
+        if lookup is None:
+            self.inventory['all']['children']['DigitalOcean']['vars'][
+                'domains'] = {}
+        # Add DigitalOcean domain info
+        self.inventory['all']['children']['DigitalOcean']['vars'][
+            'domains'][self.resource_config['name']] = self.resource_config
 
     def droplet(self):
         """Parse DigitalOcean droplet resources."""
