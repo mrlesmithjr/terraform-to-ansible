@@ -5,7 +5,7 @@ import argparse
 from terraform_to_ansible.release import __package_name__, __version__
 
 
-def get_args():
+def cli_args():
     """Available command line arguments to pass."""
     parser = argparse.ArgumentParser()
     # parser.add_argument('--backend',
@@ -20,12 +20,15 @@ def get_args():
     # parser.add_argument('--consulScheme',
     #                     help='Define Consul connection scheme.',
     #                     choices=['http', 'https'], default='http')
-    parser.add_argument('--inventory',
-                        help='File to save Ansible inventory as',
-                        default='./terraform_inventory.yml')
+    parser.add_argument('--force', help='Force overwrite', action="store_true")
+    parser.add_argument(
+        '--output', help='Output file to save Ansible inventory to')
     # parser.add_argument('--logLevel', help='Define logging level output',
     #                     choices=['CRITICAL', 'ERROR', 'WARNING',
     #                              'INFO', 'DEBUG'], default='INFO')
+    parser.add_argument(
+        '--format', help='Format to output inventory as',
+        choices=['json', 'yaml'], default='yaml')
     parser.add_argument('--tfstate', help='Terraform tftstate file to parse',
                         default='./terraform.tfstate')
     parser.add_argument('--version', action='version',
