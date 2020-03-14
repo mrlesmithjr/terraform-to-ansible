@@ -30,6 +30,7 @@ class Inventory:
 
         inventory = {'all': {'children': {}}}
         for resource_type, resource_configs in self.all_resources.items():
+            self.logger.info('resource_type: %s', resource_type)
             if 'azurerm' in resource_type:
                 pass
                 # azurerm = AzureRM(
@@ -38,6 +39,7 @@ class Inventory:
                 # azurerm.parse()
             elif 'digitalocean' in resource_type:
                 for resource_config in resource_configs:
+                    self.logger.info('resource_config: %s', resource_config)
                     digitalocean = DigitalOcean(
                         inventory, self.all_resources, resource_type,
                         resource_config)
