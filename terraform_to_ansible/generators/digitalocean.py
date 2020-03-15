@@ -1,4 +1,5 @@
 """Provides main DigitalOcean Class."""
+import logging
 
 
 class DigitalOcean:
@@ -10,6 +11,8 @@ class DigitalOcean:
         self.all_resources = all_resources
         self.resource_type = resource_type
         self.resource_config = resource_config
+        # Setup logging
+        self.logger = logging.getLogger(__name__)
 
     def parse(self):
         """Parse DigitalOcean resources to generate Ansible inventory."""
@@ -29,10 +32,13 @@ class DigitalOcean:
                         'digitalocean_ssh_key': self.ssh_key,
                         'digitalocean_tag': self.tag}
 
-        # Lookup resource mapping
-        resource = resource_map[self.resource_type]
-        # Execute function based on mapping
-        resource()
+        try:
+            # Lookup resource mapping
+            resource = resource_map[self.resource_type]
+            # Execute function based on mapping
+            resource()
+        except KeyError as error:
+            self.logger.error(error)
 
     def domain(self):
         """Parse DigitalOcean domain resources."""
