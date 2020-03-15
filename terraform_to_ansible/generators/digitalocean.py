@@ -29,6 +29,7 @@ class DigitalOcean:
                         'digitalocean_firewall': self.firewall,
                         'digitalocean_project': self.project,
                         'digitalocean_domain': self.domain,
+                        'digitalocean_record': self.record,
                         'digitalocean_ssh_key': self.ssh_key,
                         'digitalocean_tag': self.tag}
 
@@ -78,6 +79,20 @@ class DigitalOcean:
 
     def project(self):
         """Parse DigitalOcean project resources."""
+
+    def record(self):
+        """Parse DigitalOcean DNS record resources."""
+
+        # Lookup DigitalOcean vars records
+        lookup = self.inventory['all']['children']['DigitalOcean']['vars'].get(
+            'records')
+        # Add DigitialOcean vars records if it does not exist
+        if lookup is None:
+            self.inventory['all']['children']['DigitalOcean']['vars'][
+                'records'] = {}
+        # Add DigitalOcean record info
+        self.inventory['all']['children']['DigitalOcean']['vars'][
+            'records'][self.resource_config['name']] = self.resource_config
 
     def ssh_key(self):
         """Parse DigitalOcean SSH key resources."""
