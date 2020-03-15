@@ -1,0 +1,3 @@
+ansible==2.9.6
+flake8==3.7.9
+pycodestyle==2.5.0
