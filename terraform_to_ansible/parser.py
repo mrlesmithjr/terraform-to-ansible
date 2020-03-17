@@ -37,7 +37,7 @@ class Parser:
             if resources is None:
                 resources = []
 
-            return modules, resources
+            return resources
 
         except FileNotFoundError as error:
             self.logger.error(error)
@@ -46,7 +46,7 @@ class Parser:
     def parse(self):
         """Parse Terraform tfstate file."""
 
-        _modules, resources = self.load()
+        resources = self.load()
 
         for resource in resources:
             resource_mode = resource.get('mode')
@@ -60,16 +60,5 @@ class Parser:
                     for instance in instances:
                         self.all_resources[resource['type']].append(
                             instance['attributes'])
-
-        #     for module in modules:
-        #         resources = module.get('resources')
-        #         if resources is not None:
-        #             for resource, resource_config in resources.items():
-        #                 resource_type_lookup = self.all_resources.get(
-        #                     resource_config['type'])
-        #                 if resource_type_lookup is None:
-        #                     self.all_resources[resource_config['type']] = []
-        #                 self.all_resources[resource_config['type']].append(
-        #                     resource_config['primary']['attributes'])
 
         return self.all_resources
