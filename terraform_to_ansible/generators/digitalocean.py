@@ -77,8 +77,30 @@ class DigitalOcean:
     def firewall(self):
         """Parse DigitalOcean firewall resources."""
 
+        # Lookup DigitalOcean vars firewalls
+        lookup = self.inventory['all']['children']['DigitalOcean']['vars'].get(
+            'firewalls')
+        # Add DigitialOcean vars firewalls if it does not exist
+        if lookup is None:
+            self.inventory['all']['children']['DigitalOcean']['vars'][
+                'firewalls'] = {}
+        # Add DigitalOcean firewall info
+        self.inventory['all']['children']['DigitalOcean']['vars'][
+            'firewalls'][self.resource_config['name']] = self.resource_config
+
     def project(self):
         """Parse DigitalOcean project resources."""
+
+        # Lookup DigitalOcean vars projects
+        lookup = self.inventory['all']['children']['DigitalOcean']['vars'].get(
+            'projects')
+        # Add DigitialOcean vars projects if it does not exist
+        if lookup is None:
+            self.inventory['all']['children']['DigitalOcean']['vars'][
+                'projects'] = {}
+        # Add DigitalOcean project info
+        self.inventory['all']['children']['DigitalOcean']['vars'][
+            'projects'][self.resource_config['name']] = self.resource_config
 
     def record(self):
         """Parse DigitalOcean DNS record resources."""
@@ -96,6 +118,17 @@ class DigitalOcean:
 
     def ssh_key(self):
         """Parse DigitalOcean SSH key resources."""
+
+        # Lookup DigitalOcean vars ssh_keys
+        lookup = self.inventory['all']['children']['DigitalOcean']['vars'].get(
+            'ssh_keys')
+        # Add DigitialOcean vars ssh_keys if it does not exist
+        if lookup is None:
+            self.inventory['all']['children']['DigitalOcean']['vars'][
+                'ssh_keys'] = {}
+        # Add DigitalOcean ssh_key info
+        self.inventory['all']['children']['DigitalOcean']['vars'][
+            'ssh_keys'][self.resource_config['name']] = self.resource_config
 
     def tag(self):
         """Parse DigitalOcean tag resources."""
