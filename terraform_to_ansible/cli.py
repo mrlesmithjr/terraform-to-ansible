@@ -8,6 +8,8 @@ from terraform_to_ansible.release import __package_name__, __version__
 def cli_args():
     """Available command line arguments to pass."""
     parser = argparse.ArgumentParser()
+    parser.add_argument('--ansibleHost', help="Use private or public IPs",
+                        choices=['private', 'public'], default='public')
     # parser.add_argument('--backend',
     #                     help='Define which Terraform backend to parse',
     #                     choices=['local', 'consul'], default='local')

@@ -6,7 +6,10 @@ class DigitalOcean:
     """Main DigitalOcean Class."""
 
     def __init__(self, inventory, all_resources, resource_type,
-                 resource_config):
+                 resource_config, ansible_host):
+
+        # Define whether private or public ip for ansible_host
+        self.ansible_host = ansible_host
         self.inventory = inventory
         self.all_resources = all_resources
         self.resource_type = resource_type
@@ -62,9 +65,14 @@ class DigitalOcean:
         droplet_name = self.resource_config['name']
         self.inventory['all']['children']['DigitalOcean']['hosts'][
             droplet_name] = self.resource_config
+
+        if self.ansible_host == 'private':
+            ansible_host = self.resource_config['ipv4_address_private']
+        else:
+            ansible_host = self.resource_config['ipv4_address']
+
         self.inventory['all']['children']['DigitalOcean']['hosts'][
-            droplet_name]['ansible_host'] = self.resource_config[
-                'ipv4_address']
+            droplet_name]['ansible_host'] = ansible_host
         self.inventory['all']['children']['DigitalOcean']['hosts'][
             droplet_name]['ansible_user'] = 'root'
         for tag in self.resource_config['tags']:

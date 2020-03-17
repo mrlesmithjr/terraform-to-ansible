@@ -16,6 +16,8 @@ class Inventory:
         """Init a thing."""
 
         self.all_resources = all_resources
+        # Define whether private or public ip for ansible_host
+        self.ansible_host = args.ansibleHost
         # Define format to present inventory - JSON or YAML
         self.format = args.format
         # Define output file to save inventory to or display to stdout
@@ -42,7 +44,7 @@ class Inventory:
                     self.logger.info('resource_config: %s', resource_config)
                     digitalocean = DigitalOcean(
                         inventory, self.all_resources, resource_type,
-                        resource_config)
+                        resource_config, self.ansible_host)
                     digitalocean.parse()
             else:
                 pass
