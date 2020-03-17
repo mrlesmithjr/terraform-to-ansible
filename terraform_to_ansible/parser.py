@@ -29,12 +29,8 @@ class Parser:
                 data = json.load(stream)
 
             # Capture Terraform version from tfstate
-            # terraform_version = data.get('terraform_version')
-
-            # Capture modules to parse
-            modules = data.get('modules')
-            if modules is None:
-                modules = []
+            terraform_version = data.get('terraform_version')
+            self.logger.info('terraform_version: %s', terraform_version)
 
             # Capture resources to parse
             resources = data.get('resources')
