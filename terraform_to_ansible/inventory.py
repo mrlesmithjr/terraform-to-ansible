@@ -7,6 +7,7 @@ import os
 import yaml
 # from terraform_to_ansible.generators.azurerm import AzureRM
 from terraform_to_ansible.generators.digitalocean import DigitalOcean
+from terraform_to_ansible.generators.vmware import VMware
 
 
 class Inventory:
@@ -33,23 +34,52 @@ class Inventory:
         inventory = {'all': {'children': {}}}
         for resource_type, resource_configs in self.all_resources.items():
             self.logger.info('resource_type: %s', resource_type)
+
+            resource_type_map = {'azurerm': self.azurerm,
+                                 'digitalocean': self.digitalocean,
+                                 'vmware': self.vmware}
+
             if 'azurerm' in resource_type:
-                pass
-                # azurerm = AzureRM(
-                #     self.inventory, self.all_resources, resource_type,
-                #     resource_config)
-                # azurerm.parse()
+                resource_mapping = 'azurerm'
+
             elif 'digitalocean' in resource_type:
-                for resource_config in resource_configs:
-                    self.logger.info('resource_config: %s', resource_config)
-                    digitalocean = DigitalOcean(
-                        inventory, self.all_resources, resource_type,
-                        resource_config, self.ansible_host)
-                    digitalocean.parse()
+                resource_mapping = 'digitalocean'
+
+            elif 'vsphere' in resource_type:
+                resource_mapping = 'vmware'
+
             else:
                 pass
 
+            # Lookup resource mapping
+            resource = resource_type_map[resource_mapping]
+            # Execute function based on mapping
+            resource(inventory, resource_type, resource_configs)
+
         return inventory
+
+    def azurerm(self, inventory, resource_type, resource_configs):
+        pass
+        # Need to revisit AzureRM resources
+        # azurerm = AzureRM(
+        #     self.inventory, self.all_resources, resource_type,
+        #     resource_config)
+        # azurerm.parse()
+
+    def digitalocean(self, inventory, resource_type, resource_configs):
+        for resource_config in resource_configs:
+            self.logger.info('resource_config: %s', resource_config)
+            digitalocean = DigitalOcean(
+                inventory, self.all_resources, resource_type,
+                resource_config, self.ansible_host)
+            digitalocean.parse()
+
+    def vmware(self, inventory, resource_type, resource_configs):
+        for resource_config in resource_configs:
+            vmware = VMware(
+                inventory, self.all_resources, resource_type,
+                resource_config, self.ansible_host)
+            vmware.parse()
 
     def save(self, ansible_inventory):
         """Save inventory as JSON or YAML."""

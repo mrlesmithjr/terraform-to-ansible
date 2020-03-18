@@ -7,6 +7,7 @@ class DigitalOcean:
 
     def __init__(self, inventory, all_resources, resource_type,
                  resource_config, ansible_host):
+        """Init a thing."""
 
         # Define whether private or public ip for ansible_host
         self.ansible_host = ansible_host
@@ -26,6 +27,11 @@ class DigitalOcean:
         if lookup is None:
             self.inventory['all']['children']['DigitalOcean'] = {
                 'hosts': {}, 'vars': {}}
+
+        # Log resource type
+        self.logger.info('resource_type: %s', self.resource_type)
+        # Log resource config
+        self.logger.info('resource_config: %s', self.resource_config)
 
         # Define resource mappings to functions
         resource_map = {'digitalocean_droplet': self.droplet,
@@ -130,7 +136,7 @@ class DigitalOcean:
         # Lookup DigitalOcean vars ssh_keys
         lookup = self.inventory['all']['children']['DigitalOcean']['vars'].get(
             'ssh_keys')
-        # Add DigitialOcean vars ssh_keys if it does not exist
+        # Add DigitalOcean vars ssh_keys if it does not exist
         if lookup is None:
             self.inventory['all']['children']['DigitalOcean']['vars'][
                 'ssh_keys'] = {}

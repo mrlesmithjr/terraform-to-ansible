@@ -1,3 +1,21 @@
+commit 9e6c3a81f45d4664deafd8eb7e3e6dc5bedeb056
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 13:37:29 2020 -0400
+
+    Added ansible.cfg for quick testing of Ansible
+    
+    This will ensure that SSH keys are ignored, etc.
+
+commit 05dcef99dbed2631807eec5d80c2c3be8813efc0
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 02:13:03 2020 -0400
+
+    Added: Loading options and usage guide
+    
+    Can now load from file or directory
+    
+    Added initial usage guide
+
 commit fa201a110caa2cb7a1f7560f70bd7a937a4b9c01
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Tue Mar 17 14:37:51 2020 -0400
