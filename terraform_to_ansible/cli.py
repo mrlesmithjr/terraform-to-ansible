@@ -15,8 +15,9 @@ def cli_args():
     #                     choices=['local', 'consul'], default='local')
     # parser.add_argument('--consulHost',
     #                     help='Define Consul host when using Consul backend')
-    # parser.add_argument('--consulKV',
-    #                     help='Define Consul KV Pair to query. Ex. Azure/Test')
+    # parser.add_argument(
+    #     '--consulKV',
+    #     help='Define Consul KV Pair to query. Ex. Azure/Test')
     # parser.add_argument('--consulPort',
     #                     help='Define Consul host port', default='8500')
     # parser.add_argument('--consulScheme',

@@ -59,7 +59,8 @@ class Inventory:
         return inventory
 
     def azurerm(self, inventory, resource_type, resource_configs):
-        pass
+        """Generates AzureRM resources."""
+
         # Need to revisit AzureRM resources
         # azurerm = AzureRM(
         #     self.inventory, self.all_resources, resource_type,
@@ -67,18 +68,35 @@ class Inventory:
         # azurerm.parse()
 
     def digitalocean(self, inventory, resource_type, resource_configs):
+        """Generates DigitalOcean resources."""
+
         for resource_config in resource_configs:
             self.logger.info('resource_config: %s', resource_config)
-            digitalocean = DigitalOcean(
-                inventory, self.all_resources, resource_type,
-                resource_config, self.ansible_host)
+
+            # Define data to pass to class
+            data = {'inventory': inventory,
+                    'all_resources': self.all_resources,
+                    'resource_type': resource_type,
+                    'resource_config': resource_config,
+                    'ansible_host': self.ansible_host}
+
+            digitalocean = DigitalOcean(data=data)
             digitalocean.parse()
 
     def vmware(self, inventory, resource_type, resource_configs):
+        """Generates VMware resources."""
+
         for resource_config in resource_configs:
-            vmware = VMware(
-                inventory, self.all_resources, resource_type,
-                resource_config, self.ansible_host)
+            self.logger.info('resource_config: %s', resource_config)
+
+            # Define data to pass to class
+            data = {'inventory': inventory,
+                    'all_resources': self.all_resources,
+                    'resource_type': resource_type,
+                    'resource_config': resource_config,
+                    'ansible_host': self.ansible_host}
+
+            vmware = VMware(data=data)
             vmware.parse()
 
     def save(self, ansible_inventory):

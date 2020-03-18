@@ -5,16 +5,16 @@ import logging
 class DigitalOcean:
     """Main DigitalOcean Class."""
 
-    def __init__(self, inventory, all_resources, resource_type,
-                 resource_config, ansible_host):
+    def __init__(self, **kwargs):
         """Init a thing."""
 
         # Define whether private or public ip for ansible_host
-        self.ansible_host = ansible_host
-        self.inventory = inventory
-        self.all_resources = all_resources
-        self.resource_type = resource_type
-        self.resource_config = resource_config
+        self.ansible_host = kwargs['data'].get('ansible_host')
+        self.inventory = kwargs['data'].get('inventory')
+        self.all_resources = kwargs['data'].get('all_resources')
+        self.resource_type = kwargs['data'].get('resource_type')
+        self.resource_config = kwargs['data'].get('resource_config')
+
         # Setup logging
         self.logger = logging.getLogger(__name__)
 

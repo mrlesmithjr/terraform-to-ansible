@@ -1,3 +1,18 @@
+commit c31e94488337180b46ff3091e733bb213ee4bad8
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 15:10:41 2020 -0400
+
+    Added info on vSphere support
+
+commit 4a2711a6517a27d96801d36c3c1d481fe4f87098
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 13:39:02 2020 -0400
+
+    Added initial vSphere support
+    
+    Still needs some work but it works as generating a usable Ansible inventory
+    I've tested successfully in its current state
+
 commit 9e6c3a81f45d4664deafd8eb7e3e6dc5bedeb056
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Wed Mar 18 13:37:29 2020 -0400

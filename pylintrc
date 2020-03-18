@@ -1,0 +1,3 @@
+[MESSAGES CONTROL]
+# R0801: Similar lines in N files  <- Would like to reenable.
+disable=R0801
