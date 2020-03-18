@@ -1,3 +1,49 @@
+commit a11312fdafbad68d7d9a61ac4ec02fba85b75816
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 15:38:22 2020 -0400
+
+    Disabled Python 3.5 and 3.6 testing
+
+commit dadee33d66c7b8b9895cbf5cea9689305b399a6f
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 15:38:04 2020 -0400
+
+    Added missing YAML requirement
+
+commit 69ea42b9a74f18e5470bcbd12cb671deb5280069
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 15:37:49 2020 -0400
+
+    Disabled Python 3.5 and 3.6 testing
+
+commit f7a3249aa86912712f4a7f205e8769d610e85974
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 15:24:53 2020 -0400
+
+    New files, etc. from cookiecutter template
+
+commit 7d31d39e5b5680ae18ed0bbd7960c37045638519
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 15:22:30 2020 -0400
+
+    Deleted old tests, etc. not needed
+    
+    These files are no longer required for new format
+
+commit f1af518e5c8cbc97e22cea15ba2a5b462533ed19
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 15:21:38 2020 -0400
+
+    Updated files, etc. after new structure
+    
+    This aligns to cookiecutter template
+
+commit 66ea87e1934cc135872c64406a920c4283e518b9
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 15:10:55 2020 -0400
+
+    Fixed linting issues
+
 commit c31e94488337180b46ff3091e733bb213ee4bad8
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Wed Mar 18 15:10:41 2020 -0400
