@@ -31,11 +31,13 @@ def cli_args():
     parser.add_argument(
         '--format', help='Format to output inventory as',
         choices=['json', 'yaml'], default='yaml')
-    parser.add_argument('--tfstate', help='Terraform tftstate file to parse',
-                        default='./terraform.tfstate')
+    parser.add_argument('--tfstate', help='Terraform tftstate file to parse')
+    parser.add_argument('--tfstatedir', help='Terraform tftstate dir to parse')
     parser.add_argument('--version', action='version',
                         version=f'{__package_name__} {__version__}')
     args = parser.parse_args()
+    if args.tfstate is None and args.tfstatedir is None:
+        parser.error('--tfstate or --tfstatedir are required!')
     # if args.backend == 'consul' and args.consulHost is None:
     #     parser.error('Consul host is required when using Consul backend.')
     # if args.backend == 'consul' and args.consulKV is None:

@@ -1,3 +1,55 @@
+commit fa201a110caa2cb7a1f7560f70bd7a937a4b9c01
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Tue Mar 17 14:37:51 2020 -0400
+
+    Added --ansibleHost argument
+    
+    By default --ansibleHost is 'public'.
+    If you use --ansibleHost private, ansible_host will use private address
+
+commit 0ef71393b39c5b65ebe4ce5091a778d659622683
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Mon Mar 16 22:27:40 2020 -0400
+
+    Added: Firewalls, projects and ssh keys
+    
+    We add these to vars for now. May use them in another way later.
+
+commit f05be8f4fcd07b84c3a269b629cd1e34f67b999a
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Mon Mar 16 22:26:54 2020 -0400
+
+    Removed modules as this was from older versions
+    
+    Not backporting prior versions at this time
+
+commit bca1cf9a02d3780257f10a10292ff418db7c98b9
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Mon Mar 16 22:26:17 2020 -0400
+
+    Added: Capture of Terraform version
+    
+    This will capture the version of Terraform used.
+    This will be used at some point to determine logic if needed based on version
+
+commit 22cc2a664f7fc4ff7dc466e4a4d6464946956969
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Sun Mar 15 00:21:50 2020 -0400
+
+    Added: DigitalOcean DNS records
+
+commit 32b6f2f8bec9641059541583b894db52fe21e954
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Sat Mar 14 22:28:46 2020 -0400
+
+    Updated: Python requirements
+
+commit e0e02a90ed1d2d0b00cc4a2575df494d891fc40a
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Sat Mar 14 22:21:56 2020 -0400
+
+    Updated: changelog
+
 commit d3b48b0c0badc6cda136f9fc2d3fd18e0b1ba655
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Sat Mar 14 22:21:43 2020 -0400

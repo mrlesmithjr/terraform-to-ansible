@@ -2,8 +2,10 @@
 """Parse Terraform tfstate for good stuff."""
 
 import json
-import sys
 import logging
+import os
+import subprocess
+import sys
 
 
 class Parser:
@@ -17,6 +19,8 @@ class Parser:
 
         # Define Terraform tfstate file to load
         self.tfstate = args.tfstate
+        # Define Terraform tfstate directory to load
+        self.tfstatedir = args.tfstatedir
 
         # Setup logging
         self.logger = logging.getLogger(__name__)
@@ -24,24 +28,38 @@ class Parser:
     def load(self):
         """Load Terraform tfstate file."""
 
-        try:
-            with open(self.tfstate, 'r') as stream:
-                data = json.load(stream)
+        # Attempt to load tfstate file directly
+        if self.tfstate is not None:
+            try:
+                with open(self.tfstate, 'r') as stream:
+                    data = json.load(stream)
 
-            # Capture Terraform version from tfstate
-            terraform_version = data.get('terraform_version')
-            self.logger.info('terraform_version: %s', terraform_version)
+            except FileNotFoundError as error:
+                self.logger.error(error)
+                sys.exit(1)
 
-            # Capture resources to parse
-            resources = data.get('resources')
-            if resources is None:
-                resources = []
+        # Attempt to load tfstate from directory using terraform state pull
+        else:
+            try:
+                current_dir = os.getcwd()
+                os.chdir(self.tfstatedir)
+                data = json.loads(subprocess.getoutput('terraform state pull'))
+                os.chdir(current_dir)
 
-            return resources
+            except FileNotFoundError as error:
+                self.logger.error(error)
+                sys.exit(1)
 
-        except FileNotFoundError as error:
-            self.logger.error(error)
-            sys.exit(1)
+        # Capture Terraform version from tfstate
+        terraform_version = data.get('terraform_version')
+        self.logger.info('terraform_version: %s', terraform_version)
+
+        # Capture resources to parse
+        resources = data.get('resources')
+        if resources is None:
+            resources = []
+
+        return resources
 
     def parse(self):
         """Parse Terraform tfstate file."""

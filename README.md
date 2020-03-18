@@ -1,27 +1,30 @@
-# python-terraform-to-ansible
+---
+title: Terraform to Ansible
+---
 
 Consume Terraform tfstate and generate usable Ansible inventory.
 
+## Requirements
+
+## Providers Supported
+
+The following providers are currently supported:
+
+- AzureRM (Minimal or disable due to refactoring)
+- DigitialOcean
+
 ## Usage
 
-### Help
+To view the different usages available checkout the [usage](USAGE.md) guide.
 
-````bash
-python -m terraform_to_ansible --help
-...
-usage: __main__.py [-h] [--inventory INVENTORY] [--tfstate TFSTATE]
-                   [--version]
+## License
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --inventory INVENTORY
-                        File to save Ansible inventory as
-  --tfstate TFSTATE     Terraform tftstate file to parse
-  --version             show program's version number and exit
-```
+MIT
 
-### Parsing
+## Author Information
 
-```bash
-python -m terraform_to_ansible --tfstate terraform.tfstate.azure
-````
+Larry Smith Jr.
+
+- [@mrlesmithjr](https://twitter.com/mrlesmithjr)
+- [mrlesmithjr@gmail.com](mailto:mrlesmithjr@gmail.com)
+- [http://everythingshouldbevirtual.com](http://everythingshouldbevirtual.com)
