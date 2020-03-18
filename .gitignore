@@ -5,3 +5,4 @@ __pycache__
 .vscode/
 /terraform_inventory.yml
 logs/
+test.yml
