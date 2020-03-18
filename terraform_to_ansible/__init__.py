@@ -1,1 +1,1 @@
-# terraform_to_ansible/__init__.py
+"""Main level package for terraform_to_ansible."""

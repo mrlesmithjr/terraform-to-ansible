@@ -1,5 +1,5 @@
 ---
-title: Terraform to Ansible
+title: terraform_to_ansible
 ---
 
 Consume Terraform tfstate and generate usable Ansible inventory.
@@ -8,11 +8,11 @@ Consume Terraform tfstate and generate usable Ansible inventory.
 
 ### GitHub Actions
 
-![Python Test](https://github.com/mrlesmithjr/terraform_to_ansible/workflows/Python%20Test/badge.svg)
+![Python Test](https://github.com/mrlesmithjr/python-terraform-to-ansible/workflows/Python%20Test/badge.svg)
 
 ### Travis CI
 
-[![Build Status](https://travis-ci.org/mrlesmithjr/terraform_to_ansible.svg?branch=master)](https://travis-ci.org/mrlesmithjr/terraform_to_ansible)
+[![Build Status](https://travis-ci.org/mrlesmithjr/python-terraform-to-ansible.svg?branch=master)](https://travis-ci.org/mrlesmithjr/python-terraform-to-ansible)
 
 ## Requirements
 

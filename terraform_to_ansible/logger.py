@@ -13,7 +13,7 @@ def setup_logger():
     # Define logs directory
     log_dir = os.path.join(parent_dir, 'logs')
     # Define log file
-    log_file = os.path.join(log_dir, 'terraform-to-ansible.log')
+    log_file = os.path.join(log_dir, 'terraform_to_ansible.log')
 
     # Create logs directory if it does not exist
     if not os.path.isdir(log_dir):

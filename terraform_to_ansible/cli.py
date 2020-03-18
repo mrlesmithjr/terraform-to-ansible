@@ -1,12 +1,11 @@
-# terraform_to_ansible/args.py
+"""Console script for terraform_to_ansible."""
 
-"""Parse command line arguments."""
 import argparse
 from terraform_to_ansible.release import __package_name__, __version__
 
 
 def cli_args():
-    """Available command line arguments to pass."""
+    """Console script for terraform_to_ansible."""
     parser = argparse.ArgumentParser()
     parser.add_argument('--ansibleHost', help="Use private or public IPs",
                         choices=['private', 'public'], default='public')
