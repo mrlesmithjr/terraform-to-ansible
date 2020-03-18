@@ -6,12 +6,18 @@ Consume Terraform tfstate and generate usable Ansible inventory.
 
 ## Requirements
 
+## Backends Support
+
+- Local
+- Terraform Cloud
+
 ## Providers Supported
 
 The following providers are currently supported:
 
 - AzureRM (Minimal or disable due to refactoring)
 - DigitialOcean
+- VMware vSphere (Tested with Terraform `0.11.14`)
 
 ## Usage
 
