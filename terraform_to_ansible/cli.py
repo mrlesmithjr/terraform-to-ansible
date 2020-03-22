@@ -1,4 +1,4 @@
-"""Console script for terraform_to_ansible."""
+"""terraform_to_ansible/cli.py"""
 
 import argparse
 from terraform_to_ansible.release import __package_name__, __version__

@@ -1,5 +1,4 @@
-# terraform_to_ansible/__main__.py
-"""Terraform tfstate to Ansible inventory, etc."""
+"""terraform_to_ansible/__main__.py"""
 
 from terraform_to_ansible.cli import cli_args
 from terraform_to_ansible.inventory import Inventory

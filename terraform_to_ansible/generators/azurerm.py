@@ -1,5 +1,4 @@
-# terraform_to_ansible/generators/azurerm.py
-"""Ansible inventory generator for Azure RM resources."""
+"""terraform_to_ansible/generators/azurerm.py"""
 
 
 class AzureRM:

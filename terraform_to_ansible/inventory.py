@@ -1,5 +1,4 @@
-# terraform_to_ansible/inventory.py
-"""Translate Terraform tfstate to Ansible inventory."""
+"""terraform_to_ansible/inventory.py"""
 
 import json
 import logging

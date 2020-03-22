@@ -1,4 +1,5 @@
-"""Provides main DigitalOcean Class."""
+"""terraform_to_ansible/generators/digitalocean.py"""
+
 import logging
 
 
@@ -9,11 +10,11 @@ class DigitalOcean:
         """Init a thing."""
 
         # Define whether private or public ip for ansible_host
-        self.ansible_host = kwargs['data'].get('ansible_host')
-        self.inventory = kwargs['data'].get('inventory')
-        self.all_resources = kwargs['data'].get('all_resources')
-        self.resource_type = kwargs['data'].get('resource_type')
-        self.resource_config = kwargs['data'].get('resource_config')
+        self.ansible_host = kwargs['data']['ansible_host']
+        self.inventory = kwargs['data']['inventory']
+        self.all_resources = kwargs['data']['all_resources']
+        self.resource_type = kwargs['data']['resource_type']
+        self.resource_config = kwargs['data']['resource_config']
 
         # Setup logging
         self.logger = logging.getLogger(__name__)
