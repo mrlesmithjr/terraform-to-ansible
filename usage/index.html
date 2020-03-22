@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Terraform to Ansible Usage - Terraform To Ansible</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Terraform to Ansible Usage";
+    var mkdocs_page_input_path = "usage.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Terraform To Ansible</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Welcome to Terraform To Ansible</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About Terraform to Ansible</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Terraform to Ansible Usage</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#help">Help</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#displaying-to-stdout">Displaying to Stdout</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output-format">Output Format</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tfstate-inputs">TFState Inputs</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#load-file">Load File</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#load-directory">Load Directory</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#saving-inventory">Saving Inventory</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tagging">Tagging</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#example-stdout-default-yaml">Example Stdout - Default (YAML)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#example-stdout-json">Example Stdout - JSON</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Terraform To Ansible</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Terraform to Ansible Usage</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="terraform-to-ansible-usage">Terraform to Ansible Usage</h1>
+<h2 id="help">Help</h2>
+<p>To display help simply execute:</p>
+<pre><code class="bash">python -m terraform_to_ansible --help
+...
+usage: __main__.py [-h] [--ansibleHost {private,public}] [--force]
+                   [--output OUTPUT] [--format {json,yaml}]
+                   [--tfstate TFSTATE] [--tfstatedir TFSTATEDIR] [--version]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --ansibleHost {private,public}
+                        Use private or public IPs
+  --force               Force overwrite
+  --output OUTPUT       Output file to save Ansible inventory to
+  --format {json,yaml}  Format to output inventory as
+  --tfstate TFSTATE     Terraform tftstate file to parse
+  --tfstatedir TFSTATEDIR
+                        Terraform tftstate dir to parse
+  --version             show program's version number and exit
+</code></pre>
+
+<h2 id="displaying-to-stdout">Displaying to Stdout</h2>
+<p>By default, after loading your <a href="#tfstate-inputs">TFState Inputs</a>, the inventory
+will be displayed to Stdout only.</p>
+<h2 id="output-format">Output Format</h2>
+<p>Currently JSON and YAML formatting are supported. The default output format is
+YAML. However, you can control whether to display in either format by:</p>
+<pre><code class="bash">python -m terraform_to_ansible --tfstate terraform.tfstate --format {json,yaml}
+</code></pre>
+
+<h2 id="tfstate-inputs">TFState Inputs</h2>
+<p>There are several ways in which to load your tfstate data.</p>
+<ul>
+<li><a href="#load-file">Load file</a></li>
+<li><a href="#load-directory">Load directory</a></li>
+</ul>
+<h3 id="load-file">Load File</h3>
+<p>To load a tfstate file directly execute the following:</p>
+<pre><code class="bash">python -m terraform_to_ansible --tfstate terraform.tfstate
+</code></pre>
+
+<h3 id="load-directory">Load Directory</h3>
+<p>For cases in which your tfstate is remote, you can simply do the following to load
+the directory where you execute Terraform from:</p>
+<pre><code class="bash">python -m terraform_to_ansible --tfstatedir ~/Projects/Terraform/Example
+</code></pre>
+
+<h2 id="saving-inventory">Saving Inventory</h2>
+<p>In order to save the generated Ansible inventory, simply provide the <code>--output</code>
+argument and location to save to. If an existing file already exists with the
+same name, you will get an error. You can pass the <code>--force</code> argument to overwrite
+the existing file. Again, the default will be YAML, but you can also save as
+JSON if needed.</p>
+<h2 id="tagging">Tagging</h2>
+<p>Best practices are to use tags for your resources when provisioning. We will use
+tags found, to generate Ansible groupings.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="example-stdout-default-yaml">Example Stdout - Default (YAML)</h3>
+<pre><code class="bash">python -m terraform_to_ansible --tfstatedir Deployment/Terraform/example
+</code></pre>
+
+<pre><code class="yaml">all:
+  children:
+    DigitalOcean:
+      hosts:
+        test-01:
+          ansible_host: 192.245.252.9
+          ansible_user: root
+          backups: false
+          created_at: &quot;2020-03-18T04:10:53Z&quot;
+          disk: 50
+          id: &quot;&quot;
+          image: ubuntu-18-04-x64
+          ipv4_address: 192.245.252.9
+          ipv4_address_private: 10.136.185.151
+          ipv6: false
+          ipv6_address: &quot;&quot;
+          ipv6_address_private: null
+          locked: false
+          memory: 2048
+          monitoring: false
+          name: test-01
+          price_hourly: 0.01488
+          price_monthly: 10
+          private_networking: true
+          region: nyc1
+          resize_disk: true
+          size: s-1vcpu-2gb
+          ssh_keys:
+            - &quot;&quot;
+          status: active
+          tags:
+            - test
+          urn: do:droplet:185238864
+          user_data: null
+          vcpus: 1
+          volume_ids: []
+      vars:
+        projects:
+          TerraformCloud:
+            created_at: &quot;2020-03-18T04:04:29Z&quot;
+            description: Terraform Cloud Project
+            environment: Development
+            id: &quot;&quot;
+            name: TerraformCloud
+            owner_id: &quot;&quot;
+            owner_uuid: &quot;&quot;
+            purpose: Terraform Cloud Project
+            resources:
+              - do:droplet:185238864
+            updated_at: &quot;2020-03-18T04:04:29Z&quot;
+    test:
+      children: {}
+      hosts:
+        test-01: {}
+      vars: {}
+</code></pre>
+
+<h3 id="example-stdout-json">Example Stdout - JSON</h3>
+<pre><code class="bash">python -m terraform_to_ansible --tfstatedir Deployment/Terraform/example --format json | jq
+</code></pre>
+
+<pre><code class="json">{
+  &quot;all&quot;: {
+    &quot;children&quot;: {
+      &quot;DigitalOcean&quot;: {
+        &quot;hosts&quot;: {
+          &quot;test-01&quot;: {
+            &quot;backups&quot;: false,
+            &quot;created_at&quot;: &quot;2020-03-18T04:10:53Z&quot;,
+            &quot;disk&quot;: 50,
+            &quot;id&quot;: &quot;&quot;,
+            &quot;image&quot;: &quot;ubuntu-18-04-x64&quot;,
+            &quot;ipv4_address&quot;: &quot;192.245.252.9&quot;,
+            &quot;ipv4_address_private&quot;: &quot;10.136.185.151&quot;,
+            &quot;ipv6&quot;: false,
+            &quot;ipv6_address&quot;: &quot;&quot;,
+            &quot;ipv6_address_private&quot;: null,
+            &quot;locked&quot;: false,
+            &quot;memory&quot;: 2048,
+            &quot;monitoring&quot;: false,
+            &quot;name&quot;: &quot;test-01&quot;,
+            &quot;price_hourly&quot;: 0.01488,
+            &quot;price_monthly&quot;: 10,
+            &quot;private_networking&quot;: true,
+            &quot;region&quot;: &quot;nyc1&quot;,
+            &quot;resize_disk&quot;: true,
+            &quot;size&quot;: &quot;s-1vcpu-2gb&quot;,
+            &quot;ssh_keys&quot;: [&quot;&quot;],
+            &quot;status&quot;: &quot;active&quot;,
+            &quot;tags&quot;: [&quot;test&quot;],
+            &quot;urn&quot;: &quot;do:droplet:185238864&quot;,
+            &quot;user_data&quot;: null,
+            &quot;vcpus&quot;: 1,
+            &quot;volume_ids&quot;: [],
+            &quot;ansible_host&quot;: &quot;192.245.252.9&quot;,
+            &quot;ansible_user&quot;: &quot;root&quot;
+          }
+        },
+        &quot;vars&quot;: {
+          &quot;projects&quot;: {
+            &quot;TerraformCloud&quot;: {
+              &quot;created_at&quot;: &quot;2020-03-18T04:04:29Z&quot;,
+              &quot;description&quot;: &quot;Terraform Cloud Project&quot;,
+              &quot;environment&quot;: &quot;Development&quot;,
+              &quot;id&quot;: &quot;&quot;,
+              &quot;name&quot;: &quot;TerraformCloud&quot;,
+              &quot;owner_id&quot;: ,
+              &quot;owner_uuid&quot;: &quot;&quot;,
+              &quot;purpose&quot;: &quot;Terraform Cloud Project&quot;,
+              &quot;resources&quot;: [&quot;do:droplet:185238864&quot;],
+              &quot;updated_at&quot;: &quot;2020-03-18T04:04:29Z&quot;
+            }
+          }
+        }
+      },
+      &quot;test&quot;: {
+        &quot;hosts&quot;: {
+          &quot;test-01&quot;: {}
+        },
+        &quot;vars&quot;: {},
+        &quot;children&quot;: {}
+      }
+    }
+  }
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../about/" class="btn btn-neutral" title="About Terraform to Ansible"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../about/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
