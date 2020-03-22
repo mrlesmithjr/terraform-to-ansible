@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
         with:
-          path: python-terraform-to-ansible
+          path: terraform-to-ansible
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
