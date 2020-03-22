@@ -57,7 +57,7 @@ class DigitalOcean:
         # Lookup DigitalOcean vars domains
         lookup = self.inventory['all']['children']['DigitalOcean']['vars'].get(
             'domains')
-        # Add DigitialOcean vars domains if it does not exist
+        # Add DigitalOcean vars domains if it does not exist
         if lookup is None:
             self.inventory['all']['children']['DigitalOcean']['vars'][
                 'domains'] = {}
@@ -95,7 +95,7 @@ class DigitalOcean:
         # Lookup DigitalOcean vars firewalls
         lookup = self.inventory['all']['children']['DigitalOcean']['vars'].get(
             'firewalls')
-        # Add DigitialOcean vars firewalls if it does not exist
+        # Add DigitalOcean vars firewalls if it does not exist
         if lookup is None:
             self.inventory['all']['children']['DigitalOcean']['vars'][
                 'firewalls'] = {}
@@ -109,7 +109,7 @@ class DigitalOcean:
         # Lookup DigitalOcean vars projects
         lookup = self.inventory['all']['children']['DigitalOcean']['vars'].get(
             'projects')
-        # Add DigitialOcean vars projects if it does not exist
+        # Add DigitalOcean vars projects if it does not exist
         if lookup is None:
             self.inventory['all']['children']['DigitalOcean']['vars'][
                 'projects'] = {}
@@ -123,7 +123,7 @@ class DigitalOcean:
         # Lookup DigitalOcean vars records
         lookup = self.inventory['all']['children']['DigitalOcean']['vars'].get(
             'records')
-        # Add DigitialOcean vars records if it does not exist
+        # Add DigitalOcean vars records if it does not exist
         if lookup is None:
             self.inventory['all']['children']['DigitalOcean']['vars'][
                 'records'] = {}
