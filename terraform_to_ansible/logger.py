@@ -1,4 +1,4 @@
-"""Provides main logger function."""
+"""terraform_to_ansible/logger.py"""
 
 import logging
 import os

@@ -1,5 +1,4 @@
-# terraform_to_ansible/parser.py
-"""Parse Terraform tfstate for good stuff."""
+"""terraform_to_ansible/parser.py"""
 
 import json
 import logging

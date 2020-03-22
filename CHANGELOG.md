@@ -1,3 +1,15 @@
+commit f22a6cb2f9b277f0726c69d713688e3ae8d105cb
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 17:05:40 2020 -0400
+
+    Updated after tweaking cookiecutter template
+
+commit 6a576273d6b52873afa7d7354428b3d062440014
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Mar 18 15:38:33 2020 -0400
+
+    Updated: changelog
+
 commit a11312fdafbad68d7d9a61ac4ec02fba85b75816
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Wed Mar 18 15:38:22 2020 -0400
