@@ -176,6 +176,10 @@ JSON if needed.</p>
 <h2 id="tagging">Tagging</h2>
 <p>Best practices are to use tags for your resources when provisioning. We will use
 tags found, to generate Ansible groupings.</p>
+<blockquote>
+<p>NOTE: Tags with <code>-</code> in them will be converted to <code>_</code> to fall within Ansible
+standards for groups.</p>
+</blockquote>
 <h2 id="examples">Examples</h2>
 <h3 id="example-stdout-default-yaml">Example Stdout - Default (YAML)</h3>
 <pre><code class="bash">python -m terraform_to_ansible --tfstatedir Deployment/Terraform/example
