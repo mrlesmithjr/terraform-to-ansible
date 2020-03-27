@@ -75,6 +75,9 @@ JSON if needed.
 Best practices are to use tags for your resources when provisioning. We will use
 tags found, to generate Ansible groupings.
 
+> NOTE: Tags with `-` in them will be converted to `_` to fall within Ansible
+> standards for groups.
+
 ## Examples
 
 ### Example Stdout - Default (YAML)

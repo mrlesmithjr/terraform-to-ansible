@@ -83,6 +83,8 @@ class DigitalOcean:
         self.inventory['all']['children']['DigitalOcean']['hosts'][
             droplet_name]['ansible_user'] = 'root'
         for tag in self.resource_config['tags']:
+            # Convert tag to underscore to ensure no issues with - in tags
+            tag = tag.replace('-', '_')
             tag_lookup = self.inventory['all']['children'].get(tag)
             if tag_lookup is None:
                 self.inventory['all']['children'][tag] = {
@@ -149,7 +151,7 @@ class DigitalOcean:
         """Parse DigitalOcean tag resources."""
 
         # Define tag name from resource config
-        tag_name = self.resource_config['name']
+        tag_name = self.resource_config['name'].replace('-', '_')
         # Lookup DigitalOcean[tag_name] group
         lookup = self.inventory['all']['children'].get(tag_name)
         # Add DigitalOcean[tag_name] group if it does not exist
