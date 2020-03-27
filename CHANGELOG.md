@@ -1,3 +1,33 @@
+commit 5e3d65c04fe7899238d80bfb6dbc0cf544b66926
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Sun Mar 22 15:08:35 2020 -0400
+
+    First commit of mkdocs documentation
+
+commit a3df52abf886f413a54c3f0aadd4bce631e2c61b
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Sun Mar 22 15:07:56 2020 -0400
+
+    Fixed typo in DigitalOcean
+
+commit 81673097d9711fb1c723549a3df435465ac7786d
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Sun Mar 22 15:07:42 2020 -0400
+
+    Deleted old usage doc
+
+commit 2fd1ce81ac4c43e79f8b22011ce776a8ac4399d0
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Sun Mar 22 14:27:28 2020 -0400
+
+    Updated from cookiecutter template
+
+commit 59e22496dead42dc755d081f618b1879b003d656
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Sun Mar 22 11:49:58 2020 -0400
+
+    Cleaned up kwargs and docstrings
+
 commit f22a6cb2f9b277f0726c69d713688e3ae8d105cb
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Wed Mar 18 17:05:40 2020 -0400
