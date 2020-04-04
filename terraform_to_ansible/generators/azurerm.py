@@ -1,84 +1,69 @@
 """terraform_to_ansible/generators/azurerm.py"""
 
+import logging
+
 
 class AzureRM:
     """Main AzureRM Ansible inventory generator class."""
 
-    def __init__(self, inventory, all_resources, resource_type,
-                 resource_config):
-        self.inventory = inventory
-        self.all_resources = all_resources
-        self.resource_type = resource_type
-        self.resource_config = resource_config
+    def __init__(self, **kwargs):
+        # Define whether private or public ip for ansible_host
+        self.ansible_host = kwargs['data']['ansible_host']
+        self.inventory = kwargs['data']['inventory']
+        self.all_resources = kwargs['data']['all_resources']
+        self.resource_type = kwargs['data']['resource_type']
+        self.resource_config = kwargs['data']['resource_config']
+
+        # Setup logging
+        self.logger = logging.getLogger(__name__)
 
     def parse(self):
         """Parse Azure RM resources to generate Ansible inventory."""
-        self.azurerm_vm()
+        # self.azurerm_vm()
 
-    def azurerm_vm(self):
-        """Main Azure RM virtual machine parsing."""
-        nics = self.azurerm_nics()
-        pub_ips = self.azurerm_pub_ips()
-        inv_res_type_lookup = self.inventory.get(self.resource_type)
-        if inv_res_type_lookup is None:
-            self.inventory[self.resource_type] = dict(
-                children=dict(),
-                hosts=dict()
-            )
-        for virtual_machine in self.resource_config:
-            private_ips = set()
-            public_ips = set()
-            for network_interface_id in virtual_machine[
-                    'network_interface_ids']:
-                for ip_addr in nics[network_interface_id][
-                        'private_ip_addresses']:
-                    private_ips.add(ip_addr)
-                for ip_config in nics[network_interface_id].get(
-                        'ip_configuration'):
-                    pub_ip_lookup = pub_ips.get(
-                        ip_config['public_ip_address_id'])
-                    if pub_ip_lookup is not None:
-                        pub_ip = pub_ips[ip_config[
-                            'public_ip_address_id']].get('ip_address')
-                        public_ips.add(pub_ip)
+        # Lookup AzureRM inventory group
+        lookup = self.inventory['all']['children'].get('AzureRM')
+        # Add AzureRM inventory group if it does not exist
+        if lookup is None:
+            self.inventory['all']['children']['AzureRM'] = {
+                'hosts': {}, 'vars': {}}
 
-            vm_info = dict(
-                location=virtual_machine['location'],
-                os_profile=virtual_machine['os_profile'],
-                private_ips=list(private_ips),
-                public_ips=list(public_ips),
-                resource_group_name=virtual_machine['resource_group_name'],
-                storage_image_reference=virtual_machine[
-                    'storage_image_reference'],
-                tags=virtual_machine['tags'],
-                vm_size=virtual_machine['vm_size']
-            )
-            self.inventory[self.resource_type]['hosts'][
-                virtual_machine['name']] = vm_info
+        # Log resource type
+        self.logger.info('resource_type: %s', self.resource_type)
+        # Log resource config
+        self.logger.info('resource_config: %s', self.resource_config)
 
-    def azurerm_nics(self):
-        """
-        Parse all resources for Azure RM network interfaces and put into
-        dictionary for lookups.
-        """
-        nics = dict()
-        azurerm_network_interfaces = self.all_resources.get(
-            'azurerm_network_interface')
-        if azurerm_network_interfaces is not None:
-            for nic in azurerm_network_interfaces:
-                nics[nic['id']] = nic
+        # Define resource mappings to functions
+        resource_map = {'azurerm_virtual_machine': self.virtual_machine,
+                        'azurerm_network_interface': self.network_interface,
+                        'azurerm_resource_group': self.resource_group,
+                        'azurerm_virtual_network': self.virtual_network,
+                        'azurerm_subnet': self.subnet}
 
-        return nics
+        try:
+            # Lookup resource mapping
+            resource = resource_map[self.resource_type]
+            # Execute function based on mapping
+            resource()
+        except KeyError as error:
+            self.logger.error(error)
 
-    def azurerm_pub_ips(self):
-        """
-        Parse all resources for Azure RM public IPs and put into
-        dictionary for lookups.
-        """
-        pub_ips = dict()
-        azurerm_public_ips = self.all_resources.get('azurerm_public_ip')
-        if azurerm_public_ips is not None:
-            for azurerm_public_ip in azurerm_public_ips:
-                pub_ips[azurerm_public_ip['id']] = azurerm_public_ip
+    def virtual_machine(self):
+        """Parse AzureRM virtual machine resources"""
 
-        return pub_ips
+        # Define VM name from resource config
+        vm_name = self.resource_config['name']
+        self.inventory['all']['children']['AzureRM']['hosts'][
+            vm_name] = self.resource_config
+
+    def network_interface(self):
+        """Parse AzureRM network interface resources"""
+
+    def resource_group(self):
+        """Parse AzureRM resource groups"""
+
+    def virtual_network(self):
+        """Parse AzureRM virtual network resources"""
+
+    def subnet(self):
+        """Parse AzureRM subnet resources"""
