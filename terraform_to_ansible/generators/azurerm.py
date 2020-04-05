@@ -36,6 +36,7 @@ class AzureRM:
         # Define resource mappings to functions
         resource_map = {'azurerm_virtual_machine': self.virtual_machine,
                         'azurerm_network_interface': self.network_interface,
+                        'azurerm_public_ip': self.public_ip,
                         'azurerm_resource_group': self.resource_group,
                         'azurerm_virtual_network': self.virtual_network,
                         'azurerm_subnet': self.subnet}
@@ -58,6 +59,9 @@ class AzureRM:
 
     def network_interface(self):
         """Parse AzureRM network interface resources"""
+
+    def public_ip(self):
+        """Parse AzureRM public IP resources"""
 
     def resource_group(self):
         """Parse AzureRM resource groups"""
