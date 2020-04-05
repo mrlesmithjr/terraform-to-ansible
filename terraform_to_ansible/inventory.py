@@ -4,7 +4,7 @@ import json
 import logging
 import os
 import yaml
-# from terraform_to_ansible.generators.azurerm import AzureRM
+from terraform_to_ansible.generators.azurerm import AzureRM
 from terraform_to_ansible.generators.digitalocean import DigitalOcean
 from terraform_to_ansible.generators.vmware import VMware
 
@@ -61,10 +61,20 @@ class Inventory:
         """Generates AzureRM resources."""
 
         # Need to revisit AzureRM resources
-        # azurerm = AzureRM(
-        #     self.inventory, self.all_resources, resource_type,
-        #     resource_config)
+        # azurerm = AzureRM(resource_type, resource_configs)
         # azurerm.parse()
+        for resource_config in resource_configs:
+            self.logger.info('resource_config: %s', resource_config)
+
+            # Define data to pass to class
+            data = {'inventory': inventory,
+                    'all_resources': self.all_resources,
+                    'resource_type': resource_type,
+                    'resource_config': resource_config,
+                    'ansible_host': self.ansible_host}
+
+            azurerm = AzureRM(data=data)
+            azurerm.parse()
 
     def digitalocean(self, inventory, resource_type, resource_configs):
         """Generates DigitalOcean resources."""
