@@ -35,6 +35,7 @@ class AzureRM:
 
         # Define resource mappings to functions
         resource_map = {'azurerm_virtual_machine': self.virtual_machine,
+                        'azurerm_linux_virtual_machine': self.virtual_machine,
                         'azurerm_network_interface': self.network_interface,
                         'azurerm_public_ip': self.public_ip,
                         'azurerm_resource_group': self.resource_group,
@@ -56,6 +57,24 @@ class AzureRM:
         vm_name = self.resource_config['name']
         self.inventory['all']['children']['AzureRM']['hosts'][
             vm_name] = self.resource_config
+
+        if self.ansible_host == 'private':
+            ansible_host = self.resource_config['private_ip_address']
+        else:
+            ansible_host = self.resource_config['public_ip_address']
+
+        self.inventory['all']['children']['AzureRM']['hosts'][
+            vm_name]['ansible_host'] = ansible_host
+        self.inventory['all']['children']['AzureRM']['hosts'][
+            vm_name]['ansible_user'] = self.resource_config['admin_username']
+        for _key, value in self.resource_config['tags'].items():
+            # Convert tag to underscore to ensure no issues with - in tags
+            tag = value.replace('-', '_')
+            tag_lookup = self.inventory['all']['children'].get(tag)
+            if tag_lookup is None:
+                self.inventory['all']['children'][tag] = {
+                    'hosts': {}, 'vars': {}, 'children': {}}
+            self.inventory['all']['children'][tag]['hosts'][vm_name] = {}
 
     def network_interface(self):
         """Parse AzureRM network interface resources"""

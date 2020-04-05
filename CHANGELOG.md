@@ -1,3 +1,35 @@
+commit 1836f1b9d75ed861645a642d769dc45241d7d35e
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Sun Apr 5 00:36:10 2020 -0400
+
+    Initial lookup for AzureRM public IPs
+
+commit 602798d77e0d812e48bfb9ca4b4fa2fd2b636c61
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Sat Apr 4 18:31:43 2020 -0400
+
+    Initial tweaks for AzureRM resources
+    
+    This is just the beginning
+
+commit de4b817e13f40bc470caf6e451c8592a45db8cf4
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Fri Mar 27 00:38:58 2020 -0400
+
+    Added log file rotation
+    
+    This will keep logs from growing too large and will rotate nightly at midnight
+
+commit c864ee319a93e8cb9a736e31b078b2ffcae2365d
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Thu Mar 26 23:55:07 2020 -0400
+
+    Changed DigitalOcean tag to groups naming
+    
+    Because Ansible expects groups to not contain `-` in them. There is a
+    chance when we use tags with `-` in them we get warnings from Ansible.
+    So, to aleviate this issue, we convert tags with `-` to `_`.
+
 commit 5e3d65c04fe7899238d80bfb6dbc0cf544b66926
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Sun Mar 22 15:08:35 2020 -0400
