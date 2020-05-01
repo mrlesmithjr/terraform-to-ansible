@@ -114,6 +114,7 @@ class Inventory:
     def vmware_cleanup(self, inventory):
         """Cleanup VMware inventory."""
 
+        self.logger.info('Cleaning up vSphere inventory')
         if inventory['all']['children']['VMware']['hosts']:
             for host, config in inventory['all']['children']['VMware'][
                     'hosts'].items():
@@ -130,8 +131,10 @@ class Inventory:
                         inventory['all']['children'][tag_name]['hosts'][
                             host] = {}
 
-                    inventory['all']['children']['VMware']['hosts'][host]['tags'] = vm_tags
+                    inventory['all']['children']['VMware']['hosts'][host][
+                        'tags'] = vm_tags
 
+        self.logger.info('Removing temp VMware tags')
         del inventory['all']['children']['VMware']['vars']['tags']
 
     def save(self, ansible_inventory):
