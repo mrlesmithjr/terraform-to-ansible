@@ -55,6 +55,9 @@ class Inventory:
             # Execute function based on mapping
             resource(inventory, resource_type, resource_configs)
 
+        if inventory['all']['children']['VMware']:
+            self.vmware_cleanup(inventory)
+
         return inventory
 
     def azurerm(self, inventory, resource_type, resource_configs):
@@ -107,6 +110,32 @@ class Inventory:
 
             vmware = VMware(data=data)
             vmware.parse()
+
+    def vmware_cleanup(self, inventory):
+        """Cleanup VMware inventory."""
+
+        self.logger.info('Cleaning up vSphere inventory')
+        if inventory['all']['children']['VMware']['hosts']:
+            for host, config in inventory['all']['children']['VMware'][
+                    'hosts'].items():
+                tags = config.get('tags')
+                if tags is not None:
+                    vm_tags = []
+                    for tag in tags:
+                        # Lookup tag name
+                        tag_name = inventory['all']['children']['VMware'][
+                            'vars']['tags'][tag].replace('-', '_')
+                        # Update host tags with real name
+                        vm_tags.append(tag_name)
+                        # Add host to Ansible group based on tag
+                        inventory['all']['children'][tag_name]['hosts'][
+                            host] = {}
+
+                    inventory['all']['children']['VMware']['hosts'][host][
+                        'tags'] = vm_tags
+
+        self.logger.info('Removing temp VMware tags')
+        del inventory['all']['children']['VMware']['vars']['tags']
 
     def save(self, ansible_inventory):
         """Save inventory as JSON or YAML."""

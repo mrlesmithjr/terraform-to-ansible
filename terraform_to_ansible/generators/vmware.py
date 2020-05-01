@@ -37,6 +37,7 @@ class VMware:
         # Define resource mappings to functions
         resource_map = {'dns_a_record_set': self.record,
                         'vsphere_datacenter': self.datacenter,
+                        'vsphere_tag': self.tag,
                         'vsphere_virtual_machine': self.virtual_machine}
 
         try:
@@ -63,31 +64,44 @@ class VMware:
         self.inventory['all']['children']['VMware']['vars'][
             'datacenters'][self.resource_config['name']] = self.resource_config
 
+    def tag(self):
+        """Parse vSphere tags."""
+
+        # Lookup vsphere vars tags
+        lookup = self.inventory['all']['children']['VMware']['vars'].get(
+            'tags')
+        # Add VMware vars tags if it does not exist
+        if lookup is None:
+            self.inventory['all']['children']['VMware']['vars']['tags'] = {}
+        # Define tag name from resource config
+        tag_name = self.resource_config['name'].replace('-', '_')
+        # Add VMware tag into
+        self.inventory['all']['children']['VMware']['vars'][
+            'tags'][self.resource_config['id']] = tag_name
+
+        # Lookup VMware[tag_name] group
+        lookup = self.inventory['all']['children'].get(tag_name)
+        # Add VMware[tag_name] group if it does not exist
+        if lookup is None:
+            self.inventory['all']['children'][tag_name] = {
+                'hosts': {}, 'vars': {}, 'children': {}}
+
     def virtual_machine(self):
         """Parse vSphere virtual machine resources."""
 
-        # Define vm name from resource config
-        vm_name = self.resource_config['name']
-        self.inventory['all']['children']['VMware']['hosts'][
-            vm_name] = self.resource_config
+        # Check to ensure not a template and has a default IP address
+        ansible_host = self.resource_config.get('default_ip_address')
 
-        # Get interface 0, if it is not found ansible_host will be None. Which
-        # we can figure out a better way to handle later.
-        ansible_host = self.resource_config.get(
-            'network_interface.0.ipv4_address')
+        # Only add if ansible_host is not null
+        if ansible_host is not None:
+            # Define vm name from resource config
+            vm_name = self.resource_config['name']
+            self.inventory['all']['children']['VMware']['hosts'][
+                vm_name] = self.resource_config
 
-        # Set ansible_host
-        self.inventory['all']['children']['VMware']['hosts'][
-            vm_name]['ansible_host'] = ansible_host
-
-        # Need to get some examples of tags to properly create groups
-        # for tag in self.resource_config['tags']:
-        #     tag_lookup = self.inventory['all']['children'].get(tag)
-        #     if tag_lookup is None:
-        #         self.inventory['all']['children'][tag] = {
-        #             'hosts': {}, 'vars': {}, 'children': {}}
-        #     self.inventory[
-        #         'all']['children'][tag]['hosts'][droplet_name] = {}
+            # Set ansible_host
+            self.inventory['all']['children']['VMware']['hosts'][
+                vm_name]['ansible_host'] = ansible_host
 
     def record(self):
         """Parse vSphere DNS record resources."""
