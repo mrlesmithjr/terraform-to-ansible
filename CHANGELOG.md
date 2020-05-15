@@ -1,3 +1,40 @@
+commit 64a36e08f5a42ab1ce3a4daaf1f08cb342b1735d
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed May 6 00:52:29 2020 -0400
+
+    Fixing VMware KeyError
+
+commit a44ad1fab1add32cd95f1572149bb40042c4789c
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Mon May 4 10:21:41 2020 -0400
+
+    Fixed issue when VMware was not defined
+    
+    Was getting a KeyError 'VMware'
+
+commit 429fe932289c3b0d6c965e336521980b33100679
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Fri May 1 11:31:26 2020 -0400
+
+    Fixed linting issue
+
+commit 9cfdfac64d4b434b8ba18571361f58873d32cb9c
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Fri May 1 11:24:05 2020 -0400
+
+    Fine tuned vSphere resources
+    
+    Resolves #4
+
+commit a12c17e4c9e4f786d0ae512c7d2bffd5753268d8
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Sun Apr 5 13:50:54 2020 -0400
+
+    Now able to get AzureRM private/public IP, etc.
+    
+    This now adds the ability for the initial usage back for AzureRM
+    resources.
+
 commit 1836f1b9d75ed861645a642d769dc45241d7d35e
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Sun Apr 5 00:36:10 2020 -0400
