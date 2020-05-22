@@ -1,0 +1,9 @@
+# Python requirements for development
+-c requirements.txt
+ansible
+autopep8
+flake8
+mkdocs
+pycodestyle
+pylint
+tox

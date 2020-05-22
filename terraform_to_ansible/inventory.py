@@ -55,8 +55,8 @@ class Inventory:
             # Execute function based on mapping
             resource(inventory, resource_type, resource_configs)
 
-        if inventory['all']['children'] and inventory['all'][
-                'children']['VMware']:
+        vmware = inventory['all']['children'].get('VMware')
+        if vmware is not None:
             self.vmware_cleanup(inventory)
 
         return inventory
