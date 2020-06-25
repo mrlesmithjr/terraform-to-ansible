@@ -58,13 +58,14 @@ class AzureRM:
         self.inventory['all']['children']['AzureRM']['hosts'][
             vm_name] = self.resource_config
 
-        if self.ansible_host == 'private':
-            ansible_host = self.resource_config['private_ip_address']
-        else:
-            ansible_host = self.resource_config['public_ip_address']
+        if self.ansible_host is not None:
+            if self.ansible_host == 'private':
+                ansible_host = self.resource_config['private_ip_address']
+            else:
+                ansible_host = self.resource_config['public_ip_address']
 
-        self.inventory['all']['children']['AzureRM']['hosts'][
-            vm_name]['ansible_host'] = ansible_host
+            self.inventory['all']['children']['AzureRM']['hosts'][
+                vm_name]['ansible_host'] = ansible_host
         self.inventory['all']['children']['AzureRM']['hosts'][
             vm_name]['ansible_user'] = self.resource_config['admin_username']
         for _key, value in self.resource_config['tags'].items():

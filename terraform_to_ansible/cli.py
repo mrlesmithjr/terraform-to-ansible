@@ -8,7 +8,7 @@ def cli_args():
     """Console script for terraform_to_ansible."""
     parser = argparse.ArgumentParser()
     parser.add_argument('--ansibleHost', help="Use private or public IPs",
-                        choices=['private', 'public'], default='public')
+                        choices=['private', 'public'], default=None)
     # parser.add_argument('--backend',
     #                     help='Define which Terraform backend to parse',
     #                     choices=['local', 'consul'], default='local')
