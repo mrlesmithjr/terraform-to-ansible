@@ -48,12 +48,15 @@ class Inventory:
                 resource_mapping = 'vmware'
 
             else:
-                pass
+                resource_mapping = resource_type
 
-            # Lookup resource mapping
-            resource = resource_type_map[resource_mapping]
-            # Execute function based on mapping
-            resource(inventory, resource_type, resource_configs)
+            try:
+                # Lookup resource mapping
+                resource = resource_type_map[resource_mapping]
+                # Execute function based on mapping
+                resource(inventory, resource_type, resource_configs)
+            except KeyError as error:
+                self.logger.error(error)
 
         vmware = inventory['all']['children'].get('VMware')
         if vmware is not None:
