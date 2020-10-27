@@ -10,13 +10,12 @@ astroid==2.3.3            # via pylint
 autopep8==1.5             # via -r requirements-dev.in
 cffi==1.14.0              # via cryptography
 click==7.1.2              # via -c requirements.txt, mkdocs
-cryptography==2.8         # via ansible
+cryptography==3.2         # via ansible
 distlib==0.3.0            # via virtualenv
 entrypoints==0.3          # via flake8
 filelock==3.0.12          # via tox, virtualenv
 flake8==3.7.9             # via -r requirements-dev.in
 future==0.18.2            # via lunr
-importlib-metadata==1.6.0  # via pluggy, tox, virtualenv
 isort==4.3.21             # via pylint
 jinja2==2.11.1            # via ansible, mkdocs
 lazy-object-proxy==1.4.3  # via astroid
@@ -40,10 +39,8 @@ six==1.14.0               # via -c requirements.txt, astroid, cryptography, live
 toml==0.10.1              # via tox
 tornado==6.0.4            # via livereload, mkdocs
 tox==3.15.0               # via -r requirements-dev.in
-typed-ast==1.4.1          # via astroid
 virtualenv==20.0.20       # via tox
 wrapt==1.11.2             # via astroid
-zipp==3.1.0               # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
