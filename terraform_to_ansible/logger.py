@@ -12,9 +12,9 @@ def setup_logger():
     # Excluded in .gitignore
     parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     # Define logs directory
-    log_dir = os.path.join(parent_dir, 'logs')
+    log_dir = os.path.join(parent_dir, "logs")
     # Define log file
-    log_file = os.path.join(log_dir, 'terraform_to_ansible.log')
+    log_file = os.path.join(log_dir, "terraform_to_ansible.log")
 
     # Create logs directory if it does not exist
     if not os.path.isdir(log_dir):
@@ -22,7 +22,8 @@ def setup_logger():
 
     # Setup formatting
     formatter = logging.Formatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
     # Setup log
     logger = logging.getLogger()
     # Setup log level
@@ -38,8 +39,7 @@ def setup_logger():
     logger.addHandler(console_handler)
 
     # Setup file handler
-    file_handler = TimedRotatingFileHandler(
-        log_file, when='midnight', backupCount=7)
+    file_handler = TimedRotatingFileHandler(log_file, when="midnight", backupCount=7)
     # Setup file handler level
     file_handler.setLevel(logging.DEBUG)
     # Add formatting to file handler

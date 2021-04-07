@@ -30,22 +30,24 @@ class Inventory:
     def generate(self):
         """Generate Ansible inventory for consumption."""
 
-        inventory = {'all': {'children': {}}}
+        inventory = {"all": {"children": {}}}
         for resource_type, resource_configs in self.all_resources.items():
-            self.logger.info('resource_type: %s', resource_type)
+            self.logger.info("resource_type: %s", resource_type)
 
-            resource_type_map = {'azurerm': self.azurerm,
-                                 'digitalocean': self.digitalocean,
-                                 'vmware': self.vmware}
+            resource_type_map = {
+                "azurerm": self.azurerm,
+                "digitalocean": self.digitalocean,
+                "vmware": self.vmware,
+            }
 
-            if 'azurerm' in resource_type:
-                resource_mapping = 'azurerm'
+            if "azurerm" in resource_type:
+                resource_mapping = "azurerm"
 
-            elif 'digitalocean' in resource_type:
-                resource_mapping = 'digitalocean'
+            elif "digitalocean" in resource_type:
+                resource_mapping = "digitalocean"
 
-            elif 'vsphere' in resource_type:
-                resource_mapping = 'vmware'
+            elif "vsphere" in resource_type:
+                resource_mapping = "vmware"
 
             else:
                 resource_mapping = resource_type
@@ -58,7 +60,7 @@ class Inventory:
             except KeyError as error:
                 self.logger.error(error)
 
-        vmware = inventory['all']['children'].get('VMware')
+        vmware = inventory["all"]["children"].get("VMware")
         if vmware is not None:
             self.vmware_cleanup(inventory)
 
@@ -71,14 +73,16 @@ class Inventory:
         # azurerm = AzureRM(resource_type, resource_configs)
         # azurerm.parse()
         for resource_config in resource_configs:
-            self.logger.info('resource_config: %s', resource_config)
+            self.logger.info("resource_config: %s", resource_config)
 
             # Define data to pass to class
-            data = {'inventory': inventory,
-                    'all_resources': self.all_resources,
-                    'resource_type': resource_type,
-                    'resource_config': resource_config,
-                    'ansible_host': self.ansible_host}
+            data = {
+                "inventory": inventory,
+                "all_resources": self.all_resources,
+                "resource_type": resource_type,
+                "resource_config": resource_config,
+                "ansible_host": self.ansible_host,
+            }
 
             azurerm = AzureRM(data=data)
             azurerm.parse()
@@ -87,14 +91,16 @@ class Inventory:
         """Generates DigitalOcean resources."""
 
         for resource_config in resource_configs:
-            self.logger.info('resource_config: %s', resource_config)
+            self.logger.info("resource_config: %s", resource_config)
 
             # Define data to pass to class
-            data = {'inventory': inventory,
-                    'all_resources': self.all_resources,
-                    'resource_type': resource_type,
-                    'resource_config': resource_config,
-                    'ansible_host': self.ansible_host}
+            data = {
+                "inventory": inventory,
+                "all_resources": self.all_resources,
+                "resource_type": resource_type,
+                "resource_config": resource_config,
+                "ansible_host": self.ansible_host,
+            }
 
             digitalocean = DigitalOcean(data=data)
             digitalocean.parse()
@@ -103,14 +109,16 @@ class Inventory:
         """Generates VMware resources."""
 
         for resource_config in resource_configs:
-            self.logger.info('resource_config: %s', resource_config)
+            self.logger.info("resource_config: %s", resource_config)
 
             # Define data to pass to class
-            data = {'inventory': inventory,
-                    'all_resources': self.all_resources,
-                    'resource_type': resource_type,
-                    'resource_config': resource_config,
-                    'ansible_host': self.ansible_host}
+            data = {
+                "inventory": inventory,
+                "all_resources": self.all_resources,
+                "resource_type": resource_type,
+                "resource_config": resource_config,
+                "ansible_host": self.ansible_host,
+            }
 
             vmware = VMware(data=data)
             vmware.parse()
@@ -118,33 +126,33 @@ class Inventory:
     def vmware_cleanup(self, inventory):
         """Cleanup VMware inventory."""
 
-        self.logger.info('Cleaning up vSphere inventory')
-        if inventory['all']['children']['VMware']['hosts']:
-            for host, config in inventory['all']['children']['VMware'][
-                    'hosts'].items():
-                tags = config.get('tags')
+        self.logger.info("Cleaning up vSphere inventory")
+        if inventory["all"]["children"]["VMware"]["hosts"]:
+            for host, config in inventory["all"]["children"]["VMware"]["hosts"].items():
+                tags = config.get("tags")
                 if tags is not None:
                     vm_tags = []
                     for tag in tags:
                         # Lookup tag name
-                        tag_name = inventory['all']['children']['VMware'][
-                            'vars']['tags'][tag].replace('-', '_')
+                        tag_name = inventory["all"]["children"]["VMware"]["vars"][
+                            "tags"
+                        ][tag].replace("-", "_")
                         # Update host tags with real name
                         vm_tags.append(tag_name)
                         # Add host to Ansible group based on tag
-                        inventory['all']['children'][tag_name]['hosts'][
-                            host] = {}
+                        inventory["all"]["children"][tag_name]["hosts"][host] = {}
 
-                    inventory['all']['children']['VMware']['hosts'][host][
-                        'tags'] = vm_tags
+                    inventory["all"]["children"]["VMware"]["hosts"][host][
+                        "tags"
+                    ] = vm_tags
 
-        self.logger.info('Removing temp VMware tags')
-        del inventory['all']['children']['VMware']['vars']['tags']
+        self.logger.info("Removing temp VMware tags")
+        del inventory["all"]["children"]["VMware"]["vars"]["tags"]
 
     def save(self, ansible_inventory):
         """Save inventory as JSON or YAML."""
 
-        format_map = {'json': self.format_json, 'yaml': self.format_yaml}
+        format_map = {"json": self.format_json, "yaml": self.format_yaml}
         format_mapping = format_map[self.format]
         formatted_inventory = format_mapping(ansible_inventory)
 
@@ -153,52 +161,47 @@ class Inventory:
             self.stdout_only(formatted_inventory)
 
         else:
-            output_map = {'json': self.save_json, 'yaml': self.save_yaml}
+            output_map = {"json": self.save_json, "yaml": self.save_yaml}
             output_mapping = output_map[self.format]
 
             if os.path.isfile(self.output):
                 if self.force:
-                    self.logger.info(
-                        'Inventory file: %s already exists!', self.output)
-                    self.logger.warning(
-                        '--force used. Overwriting %s.', self.output)
-                    self.logger.info('Saving inventory to %s', self.output)
+                    self.logger.info("Inventory file: %s already exists!", self.output)
+                    self.logger.warning("--force used. Overwriting %s.", self.output)
+                    self.logger.info("Saving inventory to %s", self.output)
                     output_mapping(formatted_inventory)
-                    self.logger.info(
-                        'Successfully saved inventory to %s', self.output)
+                    self.logger.info("Successfully saved inventory to %s", self.output)
                 else:
-                    self.logger.error(
-                        'Inventory file: %s already exists!', self.output)
-                    self.logger.info('Use --force to overwrite.')
+                    self.logger.error("Inventory file: %s already exists!", self.output)
+                    self.logger.info("Use --force to overwrite.")
 
             else:
-                self.logger.info('Saving inventory to %s', self.output)
+                self.logger.info("Saving inventory to %s", self.output)
                 output_mapping(formatted_inventory)
-                self.logger.info(
-                    'Successfully saved inventory to %s', self.output)
+                self.logger.info("Successfully saved inventory to %s", self.output)
 
     def save_json(self, formatted_inventory):
         """Save inventory as JSON."""
 
-        with open(self.output, 'w') as inventory:
+        with open(self.output, "w") as inventory:
             json.dump(json.loads(formatted_inventory), inventory, indent=4)
 
     def save_yaml(self, formatted_inventory):
         """Save inventory as YAML."""
 
-        with open(self.output, 'w') as inventory:
+        with open(self.output, "w") as inventory:
             inventory.write(formatted_inventory)
 
     def stdout_only(self, formatted_inventory):
         """Display inventory to stdout only."""
 
-        self.logger.info('Displaying inventory to stdout')
+        self.logger.info("Displaying inventory to stdout")
         print(formatted_inventory)
 
     def format_json(self, ansible_inventory):
         """Format inventory as JSON."""
 
-        self.logger.info('Formatting inventory as JSON')
+        self.logger.info("Formatting inventory as JSON")
         json_inventory = json.dumps(ansible_inventory)
 
         return json_inventory
@@ -206,7 +209,7 @@ class Inventory:
     def format_yaml(self, ansible_inventory):
         """Format inventory as YAML."""
 
-        self.logger.info('Formatting inventory as YAML')
+        self.logger.info("Formatting inventory as YAML")
         yaml_inventory = yaml.dump(ansible_inventory)
 
         return yaml_inventory

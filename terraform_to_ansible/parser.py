@@ -30,11 +30,11 @@ class Parser:
         # Attempt to load tfstate file directly
         if self.tfstate is not None:
             # Log tfstate file path
-            self.logger.info('Loading --tfstate %s', self.tfstate)
+            self.logger.info("Loading --tfstate %s", self.tfstate)
 
             try:
                 # Open tfstate file
-                with open(self.tfstate, 'r') as stream:
+                with open(self.tfstate, "r") as stream:
                     # Load JSON data
                     try:
                         data = json.load(stream)
@@ -52,7 +52,7 @@ class Parser:
         # Attempt to load tfstate from directory using terraform state pull
         else:
             # Log tfstate directory
-            self.logger.info('Loading --tfstatedir %s', self.tfstatedir)
+            self.logger.info("Loading --tfstatedir %s", self.tfstatedir)
 
             try:
                 # Capture current working directory prior to changing to the
@@ -64,8 +64,7 @@ class Parser:
 
                 try:
                     # Try to load JSON output from terraform state pull command
-                    data = json.loads(
-                        subprocess.getoutput('terraform state pull'))
+                    data = json.loads(subprocess.getoutput("terraform state pull"))
 
                 # Log and exit if JSON data not found
                 except json.decoder.JSONDecodeError as error:
@@ -81,19 +80,19 @@ class Parser:
                 sys.exit(1)
 
         # Capture Terraform version from tfstate
-        terraform_version = data.get('terraform_version')
+        terraform_version = data.get("terraform_version")
 
         # Log Terraform version for additional logic if needed. Not used at
         # this time.
-        self.logger.info('terraform_version: %s', terraform_version)
+        self.logger.info("terraform_version: %s", terraform_version)
 
         # Capture resources to parse
-        resources = data.get('resources')
+        resources = data.get("resources")
         if resources is None:
             resources = []
-            modules = data.get('modules')
+            modules = data.get("modules")
             if modules is not None:
-                resources = modules[0].get('resources')
+                resources = modules[0].get("resources")
 
         return resources
 
@@ -108,18 +107,20 @@ class Parser:
             for resource in resources:
                 self.resource_types(resource)
 
-                instances = resource.get('instances')
+                instances = resource.get("instances")
                 if instances is not None:
                     for instance in instances:
-                        self.all_resources[resource['type']].append(
-                            instance['attributes'])
+                        self.all_resources[resource["type"]].append(
+                            instance["attributes"]
+                        )
 
         # Check if resources are a dict - older Terraform versions
         elif isinstance(resources, dict):
             for resource, resource_config in resources.items():
                 self.resource_types(resource_config)
-                self.all_resources[resource_config['type']].append(
-                    resource_config['primary']['attributes'])
+                self.all_resources[resource_config["type"]].append(
+                    resource_config["primary"]["attributes"]
+                )
 
         return self.all_resources
 
@@ -127,9 +128,8 @@ class Parser:
         """Populate resource types."""
 
         # Check to see if all_resources is already populated with resource type
-        resource_type_lookup = self.all_resources.get(
-            resource['type'])
+        resource_type_lookup = self.all_resources.get(resource["type"])
 
         # Add resource type to all resources if not found in lookup
         if resource_type_lookup is None:
-            self.all_resources[resource['type']] = []
+            self.all_resources[resource["type"]] = []

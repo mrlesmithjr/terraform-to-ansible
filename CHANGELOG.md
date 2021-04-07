@@ -1,3 +1,32 @@
+commit e2f8216f854b209cebc8acc2937e01c840baa93d
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Apr 7 00:57:16 2021 -0400
+
+    Updated Python requirements based on latest changes
+    
+    Exported using Poetry
+
+commit 09fa9b2a9a3ee1ee6bc576c431083b79cb936ad8
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Fri Jul 3 19:45:06 2020 -0400
+
+    Added catch all for unknown resource types
+    
+    Ran into an error when resource type was cloudflare_zones. So, for now
+    we just log an error for resource types we don't yet parse.
+
+commit 43cd6638ec38d1753c41985c2d09af401f67adb6
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Thu Jun 25 15:36:47 2020 -0400
+
+    Changed AzureRM to not add ansible_host if default arg is None
+
+commit c9e1a78eb9b26eb658e5b7d1949ec6889891bbfb
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Thu May 14 21:08:30 2020 -0400
+
+    Switched to pip-tools to manage Python reqs
+
 commit 64a36e08f5a42ab1ce3a4daaf1f08cb342b1735d
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Wed May 6 00:52:29 2020 -0400
