@@ -3,11 +3,16 @@ image: python:3.7
 
 before_script:
   - python --version
-  - pip3 install -r requirements.txt
-  - pip3 install pylint flake8
+  - pip3 install pip-tools
+  - pip-sync requirements.txt requirements-dev.txt
 
 stages:
   - linting
+
+black:
+  stage: linting
+  script:
+    - black terraform_to_ansible/ --check
 
 flake8:
   stage: linting

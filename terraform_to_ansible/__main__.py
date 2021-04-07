@@ -26,5 +26,5 @@ def main():
     inventory.save(ansible_inventory)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

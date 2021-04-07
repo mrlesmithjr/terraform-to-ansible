@@ -8,11 +8,11 @@ class AzureRM:
 
     def __init__(self, **kwargs):
         # Define whether private or public ip for ansible_host
-        self.ansible_host = kwargs['data']['ansible_host']
-        self.inventory = kwargs['data']['inventory']
-        self.all_resources = kwargs['data']['all_resources']
-        self.resource_type = kwargs['data']['resource_type']
-        self.resource_config = kwargs['data']['resource_config']
+        self.ansible_host = kwargs["data"]["ansible_host"]
+        self.inventory = kwargs["data"]["inventory"]
+        self.all_resources = kwargs["data"]["all_resources"]
+        self.resource_type = kwargs["data"]["resource_type"]
+        self.resource_config = kwargs["data"]["resource_config"]
 
         # Setup logging
         self.logger = logging.getLogger(__name__)
@@ -22,25 +22,29 @@ class AzureRM:
         # self.azurerm_vm()
 
         # Lookup AzureRM inventory group
-        lookup = self.inventory['all']['children'].get('AzureRM')
+        lookup = self.inventory["all"]["children"].get("AzureRM")
         # Add AzureRM inventory group if it does not exist
         if lookup is None:
-            self.inventory['all']['children']['AzureRM'] = {
-                'hosts': {}, 'vars': {}}
+            self.inventory["all"]["children"]["AzureRM"] = {
+                "hosts": {},
+                "vars": {},
+            }
 
         # Log resource type
-        self.logger.info('resource_type: %s', self.resource_type)
+        self.logger.info("resource_type: %s", self.resource_type)
         # Log resource config
-        self.logger.info('resource_config: %s', self.resource_config)
+        self.logger.info("resource_config: %s", self.resource_config)
 
         # Define resource mappings to functions
-        resource_map = {'azurerm_virtual_machine': self.virtual_machine,
-                        'azurerm_linux_virtual_machine': self.virtual_machine,
-                        'azurerm_network_interface': self.network_interface,
-                        'azurerm_public_ip': self.public_ip,
-                        'azurerm_resource_group': self.resource_group,
-                        'azurerm_virtual_network': self.virtual_network,
-                        'azurerm_subnet': self.subnet}
+        resource_map = {
+            "azurerm_virtual_machine": self.virtual_machine,
+            "azurerm_linux_virtual_machine": self.virtual_machine,
+            "azurerm_network_interface": self.network_interface,
+            "azurerm_public_ip": self.public_ip,
+            "azurerm_resource_group": self.resource_group,
+            "azurerm_virtual_network": self.virtual_network,
+            "azurerm_subnet": self.subnet,
+        }
 
         try:
             # Lookup resource mapping
@@ -54,28 +58,34 @@ class AzureRM:
         """Parse AzureRM virtual machine resources"""
 
         # Define VM name from resource config
-        vm_name = self.resource_config['name']
-        self.inventory['all']['children']['AzureRM']['hosts'][
-            vm_name] = self.resource_config
+        vm_name = self.resource_config["name"]
+        self.inventory["all"]["children"]["AzureRM"]["hosts"][
+            vm_name
+        ] = self.resource_config
 
         if self.ansible_host is not None:
-            if self.ansible_host == 'private':
-                ansible_host = self.resource_config['private_ip_address']
+            if self.ansible_host == "private":
+                ansible_host = self.resource_config["private_ip_address"]
             else:
-                ansible_host = self.resource_config['public_ip_address']
+                ansible_host = self.resource_config["public_ip_address"]
 
-            self.inventory['all']['children']['AzureRM']['hosts'][
-                vm_name]['ansible_host'] = ansible_host
-        self.inventory['all']['children']['AzureRM']['hosts'][
-            vm_name]['ansible_user'] = self.resource_config['admin_username']
-        for _key, value in self.resource_config['tags'].items():
+            self.inventory["all"]["children"]["AzureRM"]["hosts"][vm_name][
+                "ansible_host"
+            ] = ansible_host
+        self.inventory["all"]["children"]["AzureRM"]["hosts"][vm_name][
+            "ansible_user"
+        ] = self.resource_config["admin_username"]
+        for _key, value in self.resource_config["tags"].items():
             # Convert tag to underscore to ensure no issues with - in tags
-            tag = value.replace('-', '_')
-            tag_lookup = self.inventory['all']['children'].get(tag)
+            tag = value.replace("-", "_")
+            tag_lookup = self.inventory["all"]["children"].get(tag)
             if tag_lookup is None:
-                self.inventory['all']['children'][tag] = {
-                    'hosts': {}, 'vars': {}, 'children': {}}
-            self.inventory['all']['children'][tag]['hosts'][vm_name] = {}
+                self.inventory["all"]["children"][tag] = {
+                    "hosts": {},
+                    "vars": {},
+                    "children": {},
+                }
+            self.inventory["all"]["children"][tag]["hosts"][vm_name] = {}
 
     def network_interface(self):
         """Parse AzureRM network interface resources"""
