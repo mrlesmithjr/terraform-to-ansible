@@ -64,7 +64,9 @@ class DigitalOcean:
         )
         # Add DigitalOcean vars domains if it does not exist
         if lookup is None:
-            self.inventory["all"]["children"]["DigitalOcean"]["vars"]["domains"] = {}
+            self.inventory["all"]["children"]["DigitalOcean"]["vars"][
+                "domains"
+            ] = {}
         # Add DigitalOcean domain info
         self.inventory["all"]["children"]["DigitalOcean"]["vars"]["domains"][
             self.resource_config["name"]
@@ -84,12 +86,12 @@ class DigitalOcean:
         else:
             ansible_host = self.resource_config["ipv4_address"]
 
-        self.inventory["all"]["children"]["DigitalOcean"]["hosts"][droplet_name][
-            "ansible_host"
-        ] = ansible_host
-        self.inventory["all"]["children"]["DigitalOcean"]["hosts"][droplet_name][
-            "ansible_user"
-        ] = "root"
+        self.inventory["all"]["children"]["DigitalOcean"]["hosts"][
+            droplet_name
+        ]["ansible_host"] = ansible_host
+        self.inventory["all"]["children"]["DigitalOcean"]["hosts"][
+            droplet_name
+        ]["ansible_user"] = "root"
         for tag in self.resource_config["tags"]:
             # Convert tag to underscore to ensure no issues with - in tags
             tag = tag.replace("-", "_")
@@ -111,7 +113,9 @@ class DigitalOcean:
         )
         # Add DigitalOcean vars firewalls if it does not exist
         if lookup is None:
-            self.inventory["all"]["children"]["DigitalOcean"]["vars"]["firewalls"] = {}
+            self.inventory["all"]["children"]["DigitalOcean"]["vars"][
+                "firewalls"
+            ] = {}
         # Add DigitalOcean firewall info
         self.inventory["all"]["children"]["DigitalOcean"]["vars"]["firewalls"][
             self.resource_config["name"]
@@ -126,7 +130,9 @@ class DigitalOcean:
         )
         # Add DigitalOcean vars projects if it does not exist
         if lookup is None:
-            self.inventory["all"]["children"]["DigitalOcean"]["vars"]["projects"] = {}
+            self.inventory["all"]["children"]["DigitalOcean"]["vars"][
+                "projects"
+            ] = {}
         # Add DigitalOcean project info
         self.inventory["all"]["children"]["DigitalOcean"]["vars"]["projects"][
             self.resource_config["name"]
@@ -141,7 +147,9 @@ class DigitalOcean:
         )
         # Add DigitalOcean vars records if it does not exist
         if lookup is None:
-            self.inventory["all"]["children"]["DigitalOcean"]["vars"]["records"] = {}
+            self.inventory["all"]["children"]["DigitalOcean"]["vars"][
+                "records"
+            ] = {}
         # Add DigitalOcean record info
         self.inventory["all"]["children"]["DigitalOcean"]["vars"]["records"][
             self.resource_config["name"]
@@ -156,7 +164,9 @@ class DigitalOcean:
         )
         # Add DigitalOcean vars ssh_keys if it does not exist
         if lookup is None:
-            self.inventory["all"]["children"]["DigitalOcean"]["vars"]["ssh_keys"] = {}
+            self.inventory["all"]["children"]["DigitalOcean"]["vars"][
+                "ssh_keys"
+            ] = {}
         # Add DigitalOcean ssh_key info
         self.inventory["all"]["children"]["DigitalOcean"]["vars"]["ssh_keys"][
             self.resource_config["name"]

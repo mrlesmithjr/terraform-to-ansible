@@ -1,3 +1,9 @@
+commit d4c51c0f658bf2026ef4fac040f4ebeb0f3b3ac8
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Wed Apr 7 01:06:07 2021 -0400
+
+    Implemented Black linting
+
 commit e2f8216f854b209cebc8acc2937e01c840baa93d
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Wed Apr 7 00:57:16 2021 -0400

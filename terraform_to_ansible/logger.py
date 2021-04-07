@@ -39,7 +39,9 @@ def setup_logger():
     logger.addHandler(console_handler)
 
     # Setup file handler
-    file_handler = TimedRotatingFileHandler(log_file, when="midnight", backupCount=7)
+    file_handler = TimedRotatingFileHandler(
+        log_file, when="midnight", backupCount=7
+    )
     # Setup file handler level
     file_handler.setLevel(logging.DEBUG)
     # Add formatting to file handler

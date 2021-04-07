@@ -27,7 +27,9 @@ def cli_args():
     #                     help='Define Consul connection scheme.',
     #                     choices=['http', 'https'], default='http')
     parser.add_argument("--force", help="Force overwrite", action="store_true")
-    parser.add_argument("--output", help="Output file to save Ansible inventory to")
+    parser.add_argument(
+        "--output", help="Output file to save Ansible inventory to"
+    )
     # parser.add_argument('--logLevel', help='Define logging level output',
     #                     choices=['CRITICAL', 'ERROR', 'WARNING',
     #                              'INFO', 'DEBUG'], default='INFO')
@@ -40,7 +42,9 @@ def cli_args():
     parser.add_argument("--tfstate", help="Terraform tftstate file to parse")
     parser.add_argument("--tfstatedir", help="Terraform tftstate dir to parse")
     parser.add_argument(
-        "--version", action="version", version=f"{__package_name__} {__version__}"
+        "--version",
+        action="version",
+        version=f"{__package_name__} {__version__}",
     )
     args = parser.parse_args()
     if args.tfstate is None and args.tfstatedir is None:

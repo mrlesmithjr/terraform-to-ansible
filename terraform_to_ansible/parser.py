@@ -64,7 +64,9 @@ class Parser:
 
                 try:
                     # Try to load JSON output from terraform state pull command
-                    data = json.loads(subprocess.getoutput("terraform state pull"))
+                    data = json.loads(
+                        subprocess.getoutput("terraform state pull")
+                    )
 
                 # Log and exit if JSON data not found
                 except json.decoder.JSONDecodeError as error:

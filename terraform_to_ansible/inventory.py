@@ -128,19 +128,23 @@ class Inventory:
 
         self.logger.info("Cleaning up vSphere inventory")
         if inventory["all"]["children"]["VMware"]["hosts"]:
-            for host, config in inventory["all"]["children"]["VMware"]["hosts"].items():
+            for host, config in inventory["all"]["children"]["VMware"][
+                "hosts"
+            ].items():
                 tags = config.get("tags")
                 if tags is not None:
                     vm_tags = []
                     for tag in tags:
                         # Lookup tag name
-                        tag_name = inventory["all"]["children"]["VMware"]["vars"][
-                            "tags"
-                        ][tag].replace("-", "_")
+                        tag_name = inventory["all"]["children"]["VMware"][
+                            "vars"
+                        ]["tags"][tag].replace("-", "_")
                         # Update host tags with real name
                         vm_tags.append(tag_name)
                         # Add host to Ansible group based on tag
-                        inventory["all"]["children"][tag_name]["hosts"][host] = {}
+                        inventory["all"]["children"][tag_name]["hosts"][
+                            host
+                        ] = {}
 
                     inventory["all"]["children"]["VMware"]["hosts"][host][
                         "tags"
@@ -166,19 +170,29 @@ class Inventory:
 
             if os.path.isfile(self.output):
                 if self.force:
-                    self.logger.info("Inventory file: %s already exists!", self.output)
-                    self.logger.warning("--force used. Overwriting %s.", self.output)
+                    self.logger.info(
+                        "Inventory file: %s already exists!", self.output
+                    )
+                    self.logger.warning(
+                        "--force used. Overwriting %s.", self.output
+                    )
                     self.logger.info("Saving inventory to %s", self.output)
                     output_mapping(formatted_inventory)
-                    self.logger.info("Successfully saved inventory to %s", self.output)
+                    self.logger.info(
+                        "Successfully saved inventory to %s", self.output
+                    )
                 else:
-                    self.logger.error("Inventory file: %s already exists!", self.output)
+                    self.logger.error(
+                        "Inventory file: %s already exists!", self.output
+                    )
                     self.logger.info("Use --force to overwrite.")
 
             else:
                 self.logger.info("Saving inventory to %s", self.output)
                 output_mapping(formatted_inventory)
-                self.logger.info("Successfully saved inventory to %s", self.output)
+                self.logger.info(
+                    "Successfully saved inventory to %s", self.output
+                )
 
     def save_json(self, formatted_inventory):
         """Save inventory as JSON."""

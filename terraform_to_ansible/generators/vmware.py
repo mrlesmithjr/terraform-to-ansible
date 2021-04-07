@@ -26,7 +26,10 @@ class VMware:
         lookup = self.inventory["all"]["children"].get("VMware")
         # Add VMware inventory group if it does not exist
         if lookup is None:
-            self.inventory["all"]["children"]["VMware"] = {"hosts": {}, "vars": {}}
+            self.inventory["all"]["children"]["VMware"] = {
+                "hosts": {},
+                "vars": {},
+            }
 
         # Log resource type
         self.logger.info("resource_type: %s", self.resource_type)
@@ -55,10 +58,14 @@ class VMware:
         """Parse vSphere datacenter resources."""
 
         # Lookup vsphere vars datacenters
-        lookup = self.inventory["all"]["children"]["VMware"]["vars"].get("datacenters")
+        lookup = self.inventory["all"]["children"]["VMware"]["vars"].get(
+            "datacenters"
+        )
         # Add VMware vars datacenters if it does not exist
         if lookup is None:
-            self.inventory["all"]["children"]["VMware"]["vars"]["datacenters"] = {}
+            self.inventory["all"]["children"]["VMware"]["vars"][
+                "datacenters"
+            ] = {}
         # Add VMware datacenter info
         self.inventory["all"]["children"]["VMware"]["vars"]["datacenters"][
             self.resource_config["name"]
@@ -68,7 +75,9 @@ class VMware:
         """Parse vSphere tags."""
 
         # Lookup vsphere vars tags
-        lookup = self.inventory["all"]["children"]["VMware"]["vars"].get("tags")
+        lookup = self.inventory["all"]["children"]["VMware"]["vars"].get(
+            "tags"
+        )
         # Add VMware vars tags if it does not exist
         if lookup is None:
             self.inventory["all"]["children"]["VMware"]["vars"]["tags"] = {}
@@ -112,7 +121,9 @@ class VMware:
         """Parse vSphere DNS record resources."""
 
         # Lookup vSphere vars records
-        lookup = self.inventory["all"]["children"]["VMware"]["vars"].get("records")
+        lookup = self.inventory["all"]["children"]["VMware"]["vars"].get(
+            "records"
+        )
 
         # Add VMware vars records if it does not exist
         if lookup is None:

@@ -25,7 +25,10 @@ class AzureRM:
         lookup = self.inventory["all"]["children"].get("AzureRM")
         # Add AzureRM inventory group if it does not exist
         if lookup is None:
-            self.inventory["all"]["children"]["AzureRM"] = {"hosts": {}, "vars": {}}
+            self.inventory["all"]["children"]["AzureRM"] = {
+                "hosts": {},
+                "vars": {},
+            }
 
         # Log resource type
         self.logger.info("resource_type: %s", self.resource_type)
