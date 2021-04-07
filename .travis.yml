@@ -6,9 +6,10 @@ python:
 
 before_script:
   - python --version
-  - pip3 install -r requirements.txt
-  - pip3 install flake8 pylint
+  - pip3 install pip-tools
+  - pip-sync requirements.txt requirements-dev.txt
 
 script:
+  - black terraform_to_ansible/ --check
   - flake8 terraform_to_ansible/
   - pylint terraform_to_ansible/
