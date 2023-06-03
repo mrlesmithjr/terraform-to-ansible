@@ -8,10 +8,6 @@ Consume Terraform tfstate and generate usable Ansible inventory.
 
 ![Python Test](https://github.com/mrlesmithjr/terraform-to-ansible/workflows/Python%20Test/badge.svg)
 
-### Travis CI
-
-[![Build Status](https://travis-ci.org/mrlesmithjr/terraform-to-ansible.svg?branch=master)](https://travis-ci.org/mrlesmithjr/terraform-to-ansible)
-
 ## Requirements
 
 - [requirements.txt](requirements.txt)
@@ -34,5 +30,7 @@ Larry Smith Jr.
 - [@mrlesmithjr](https://twitter.com/mrlesmithjr)
 - [mrlesmithjr@gmail.com](mailto:mrlesmithjr@gmail.com)
 - [http://everythingshouldbevirtual.com](http://everythingshouldbevirtual.com)
+
+<a href="https://www.buymeacoffee.com/mrlesmithjr" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 > NOTE: Repo has been created/updated using [https://github.com/mrlesmithjr/cookiecutter-python-project](https://github.com/mrlesmithjr/cookiecutter-python-project) as a template.
